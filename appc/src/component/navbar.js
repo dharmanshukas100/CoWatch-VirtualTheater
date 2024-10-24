@@ -10,7 +10,7 @@ export default function navbar() {
         </div>
         <div className='pagetabs'>
             <ul className='pagetabsUl'>
-                <li>?????????????</li>
+                <li>Home</li>
                 <li>Explore Rooms</li>
                 <li>Create Room</li>
                 <li>About</li>
