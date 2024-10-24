@@ -194,5 +194,11 @@
     font-size: 18px;
     margin-top: 47px;
 }
+.platforms{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
 
 

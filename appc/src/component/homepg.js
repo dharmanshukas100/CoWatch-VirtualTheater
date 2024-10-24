@@ -12,6 +12,10 @@ import IconH42 from '../assets/home4 icon2.png'
 import IconH43 from '../assets/home4 img1.png'
 import IconH44 from '../assets/home4 starA.png'
 import IconH45 from '../assets/home4 star.png'
+import IconH51 from '../assets/netflix.png'
+import IconH52 from '../assets/youtube.png'
+import IconH53 from '../assets/DisneyPlus.png'
+import IconH54 from '../assets/APrime.png'
 
 
 import '../home.css'
@@ -97,6 +101,19 @@ export default function Homepg() {
         </div>
 
         
+    </section>
+    <section className='Padding'>
+        <div className='home2-Mhead'>
+            <h1 className='home2-h1'>Platform Supported On CoWatch<div className='lineIcon'></div></h1>
+            <button className='home2-btn'>TRY IT NOW</button>
+        </div>
+        <div className='platforms'>
+            <img src={IconH51} alt="" />
+            <img src={IconH52} alt="" />
+            <img src={IconH53} alt="" />
+            <img src={IconH54} alt="" />
+        </div>
+
     </section>
     
       
