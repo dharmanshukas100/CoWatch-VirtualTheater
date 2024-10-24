@@ -1,0 +1,133 @@
+.Padding{
+    padding: 58px 58px;
+}
+
+#header-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333333;
+    padding: 7px 48px;
+    height: 60px;
+}
+.siteLogo img{
+    width: 135px;
+    height: 25px;
+}
+.pagetabsUl{
+    display: flex;
+    color: white;
+    gap: 23px;
+    list-style: none;
+    align-items: center;
+    padding-left: 0;
+}
+.pagetabsUl li:hover{
+    border-bottom: 2px solid #78528B;
+}
+
+.signInOut-btn{
+    background: none;
+    color: white;
+    border: none;
+    border-radius: 2px;
+    padding: 10px 18px;
+    width: 90px;
+}
+.signInOut-btn:hover{
+    border: 2px solid #400A9C;
+    border-radius: 10px;
+}
+
+
+/* Home1--------------------- */
+#sec1-home{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 58px;
+    padding-right: 58px;
+    background-color: #DEE3FF;
+    border-radius: 0px 0px 350px;
+    box-shadow: 0px 20px 30px #9AA9FF;
+    padding-bottom: 25px;
+}
+.home1{
+    width: 700px;
+
+}
+.home1-head{
+    font-size: 60px;
+    margin-bottom: 0;
+
+}
+.home1-span{
+    color: #7C3AED;
+}
+.home1-btn{
+    background-color: #7C3AED;
+    border: 3px solid #400A9C;
+    border-radius: 10px;
+    color: white;
+    width: 130px;
+    height: 42px;
+}
+.home1-icon{
+
+}
+.home1-icon img{
+    width: 673px;
+    height: 408px;
+}
+.home1-h5{
+    width: 618px;
+    font-size: 18px;
+    margin-top: 3px;
+}
+
+/* home2----------------- */
+.home2-Mhead{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+.home2-h1{
+    color: #333333;
+    font-size: 40px;
+
+}
+.lineIcon{
+    display: inline-block;
+    width: 102px;
+    border: 8px solid #7c3aedbd;
+    position: relative;
+    left: -126px;
+    top: 8px;
+    z-index: -1;
+
+}
+.home2-btn{
+    background: none;
+    border: 1.5px solid #6318E3;
+    border-radius: 10px;
+    font-size: 16px;
+    padding: 10px 18px;
+    color: #6318E3;
+
+}
+.home2-feature{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+.home2-card{
+    background-color: #DEE3FF;
+    width: 350px;
+    border-radius: 10px;
+    text-align: center;
+}
+.home2-card img{
+    margin: auto;
+}
