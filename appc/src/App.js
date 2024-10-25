@@ -11,7 +11,7 @@ function App() {
       <Navbar/>
       <Home/>
       <Footer/>
-      <SignUp/>
+      {/* <SignUp/> */}
 
 
     </div>

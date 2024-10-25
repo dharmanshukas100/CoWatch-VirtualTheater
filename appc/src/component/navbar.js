@@ -11,8 +11,8 @@ export default function navbar() {
         <div className='pagetabs'>
             <ul className='pagetabsUl'>
                 <li className='Inter'>Home</li>
-                <li className='Inter'>Explore Rooms</li>
                 <li className='Inter'>Create Room</li>
+                <li className='Inter'>How It's Work</li>
                 <li className='Inter'>About</li>
                 <li className='Inter'>Contact</li>
             </ul>
