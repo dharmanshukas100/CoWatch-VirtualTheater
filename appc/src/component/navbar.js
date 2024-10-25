@@ -10,16 +10,16 @@ export default function navbar() {
         </div>
         <div className='pagetabs'>
             <ul className='pagetabsUl'>
-                <li>Home</li>
-                <li>Explore Rooms</li>
-                <li>Create Room</li>
-                <li>About</li>
-                <li>Contact</li>
+                <li className='Inter'>Home</li>
+                <li className='Inter'>Explore Rooms</li>
+                <li className='Inter'>Create Room</li>
+                <li className='Inter'>About</li>
+                <li className='Inter'>Contact</li>
             </ul>
         </div>
         <div className='signInOut'>
-            <button className='signInOut-btn'>Login</button>
-            <button className='signInOut-btn'>Sign Up</button>
+            <button className='signInOut-btn signIn-btn Nunito'>Login</button>
+            <button className='signInOut-btn signOut-btn Nunito'>Sign Up</button>
         </div>
     </nav>
   )
