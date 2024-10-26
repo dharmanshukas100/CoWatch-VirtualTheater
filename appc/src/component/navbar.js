@@ -11,8 +11,8 @@ export default function Navbar({ onSignUpClick, onSignInClick }) {
       <div className='pagetabs'>
         <ul className='pagetabsUl'>
           <li className='Inter'>Home</li>
-          <li className='Inter'>Explore Rooms</li>
           <li className='Inter'>Create Room</li>
+          <li className='Inter'>How It Work's</li>
           <li className='Inter'>About</li>
           <li className='Inter'>Contact</li>
         </ul>

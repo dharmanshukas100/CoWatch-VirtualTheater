@@ -9,7 +9,7 @@ import CowatchLogo from '../assets/dark.png';
 
 import '../home.css';
 
-export default function UserSignIn({ OnBackBtnClick }) {
+export default function UserSignIn({ OnBackBtnClick, onSignUpClick }) {
   const [passwordVisible, setPasswordVisible] = useState(false);
   
   const togglePasswordVisibility = () => {
@@ -74,7 +74,7 @@ export default function UserSignIn({ OnBackBtnClick }) {
           </div>
 
           <p className="login-link Nunito">
-            Don't have an account? <a href="www.google.com">Sign Up now</a>
+            Don't have an account? <a href="#" onClick={(e) => { e.preventDefault(); onSignUpClick(); }}>Sign Up now</a>
           </p>
         </div>
       </div>

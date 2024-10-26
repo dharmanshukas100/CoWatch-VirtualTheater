@@ -36,7 +36,7 @@ function App() {
       )}
 
       {showSignUp && <SignUp OnBackBtnClick={handleBackBtnClick} onSignInClick={handleSignInClick} />}
-      {showSignIn && <SignIn OnBackBtnClick={handleBackBtnClick} />}
+      {showSignIn && <SignIn OnBackBtnClick={handleBackBtnClick} onSignUpClick={handleSignUpClick} />}
     </div>
   );
 }
