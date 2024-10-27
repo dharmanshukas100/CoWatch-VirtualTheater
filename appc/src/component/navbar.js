@@ -2,7 +2,7 @@ import React from 'react';
 import lightLogo from '../assets/white.png';
 import '../home.css';
 
-export default function Navbar({ onSignUpClick, onSignInClick, onHTworkclick, onHomebtnclick }) {
+export default function Navbar({ onSignUpClick, onSignInClick, onHTworkclick, onHomebtnclick, onAboutbtnclick, onContactbtnclick }) {
   return (
     <nav id='header-nav'>
       <div className='siteLogo'>
@@ -13,8 +13,8 @@ export default function Navbar({ onSignUpClick, onSignInClick, onHTworkclick, on
           <li className='Inter' onClick={onHomebtnclick}>Home</li>
           <li className='Inter'>Create Room</li>
           <li className='Inter' onClick={onHTworkclick}>How It Work's</li>
-          <li className='Inter'>About</li>
-          <li className='Inter'>Contact</li>
+          <li className='Inter' onClick={onAboutbtnclick}>About</li>
+          <li className='Inter'onClick={onContactbtnclick} >Contact</li>
         </ul>
       </div>
       <div className='signInOut'>

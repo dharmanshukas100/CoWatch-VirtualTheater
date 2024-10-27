@@ -173,6 +173,7 @@ input:focus {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 11px 46px;
 
 }
 .home2-card{
@@ -568,6 +569,7 @@ font-size: 18px;
     text-align: center;
     display: inline-block;
     padding: 9px 19px;
+    color: #FFFFFF;
 }
 .Step-Numbering p{
     display: inline;
@@ -592,4 +594,98 @@ font-size: 18px;
     text-align: center;
     margin: auto;
     padding: 10px;
+}
+
+/* --------about************** */
+.head1-About{
+    font-size: 29px;
+    color: #400A9C;
+    font-weight: bold;
+    margin-bottom: 19px;
+    margin-top: 50px;
+    text-align: center;
+}
+.cards-aboutpage:hover{
+    background-color: #DEE3FF;
+}
+
+
+/* -------contact************** */
+.Head1-contact{
+    font-size: 36px;
+    font-weight: bold;
+    text-align: center;
+    color: #7C3AED;
+    margin: 0;
+}
+.Subhead1-contact{
+    font-size: 24px;
+    color: #400A9C;
+    font-weight: bold;
+    margin-bottom: 0;
+    text-align: center;
+    font-style: italic;
+}
+.contactform-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    gap: 19px;
+    width: 750px;
+    margin-top: 30px;
+}
+.contactform-container input{
+    width: 710px;
+    background-color: #D9D9D9;
+    border: none;
+    color: #6B7280;
+    font-size: 20px;
+    font-weight: 700;
+    border-radius: 10px;
+    padding: 20px;
+}
+.contactform-container textarea{
+    width: 710px;
+    background-color: #D9D9D9;
+    border: none;
+    color: #6B7280;
+    font-size: 20px;
+    font-weight: 700;
+    border-radius: 10px;
+    height: 336px;
+    padding: 20px;
+}
+.contactform-container button{
+    background-color: #7C3AED;
+    border: none;
+    border-radius: 10px;
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 10px;
+    align-self: flex-end;
+}
+
+.Another-contact{
+    display: block;
+    margin: auto;
+    width: 750px;
+    font-size: 16px;
+    font-weight: 700;
+
+}
+.Another-contact p{
+    font-size: 16px;
+    font-weight: 700;
+    color: #000000;
+    
+
+}
+.Another-contact span{
+    font-size: 16px;
+    font-weight: 700;
+    color: #7C3AED;
+
 }

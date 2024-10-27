@@ -38,7 +38,7 @@ export default function Homepg() {
             <h1 className='home2-h1'>What Makes CoWatch Special?<div className='lineIcon'></div></h1>
             <button className='home2-btn Nunito'>EXPLORE FEATURES</button>
         </div>
-        <div className='home2-feature Padding'>
+        <div className='home2-feature'>
             <div className='home2-card Poppins'>
                 <img src={IconH21} alt="" />
                 <h1>Real Time Interaction</h1>
