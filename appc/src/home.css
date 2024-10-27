@@ -513,14 +513,83 @@ font-size: 18px;
 
 
 /* ------How It Works***************** */
-HIW-Page-Heading{
+.HowitWork{
+    padding-top: 45px;
+}
+.HIW-Page-Heading{
     font-size: 36px;
     font-weight: bold;
     text-align: center;
+    color: #7C3AED;
+    margin: 0;
 
 }
 .Quote-section-1{
     
 }
-.Quote-HeadA{}
-.Quote-Head{}
+.Quote-HeadA{
+    font-size: 24px;
+    color: #400A9C;
+    font-style: italic;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+.Quote-ParaA{
+    color: #6B7280;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 3px;
+    text-align: justify;
+}
+.Step1{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 70px;
+    gap: 100px;
+}
+.step-detail-section{
+
+}
+.step1-text{
+    display: inline-block;
+}
+.Quote-HeadB{
+    font-size: 24px;
+    color: #400A9C;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+.Step-Numbering{
+    background-color: #7C3AED;
+    border-radius: 10px;
+    font-size: 24px;
+    font-weight: 900;
+    text-align: center;
+    display: inline-block;
+    padding: 9px 19px;
+}
+.Step-Numbering p{
+    display: inline;
+}
+.Quote-Bottom{
+    font-size: 24px;
+    font-weight: 700;
+    color: #000000;
+    text-align: center;
+}
+.Createroombtn-div{
+
+}
+.Createroombtn{
+    display: block;
+    background-color: #7C3AED;
+    border-radius: 10px;
+    border: none;
+    font-size: 16px;
+    font-weight: 700;
+    color: #ffffff;
+    text-align: center;
+    margin: auto;
+    padding: 10px;
+}
