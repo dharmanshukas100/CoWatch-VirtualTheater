@@ -8,6 +8,7 @@ import SignIn from './component/UserSignIn';
 import Howitwork from './component/Howitwork';
 import About from './component/About';
 import Contact from './component/Contact';
+import Createroom from './component/Createroom';
 
 function App() {
   const [showSignUp, setShowSignUp] = useState(false);
@@ -16,7 +17,18 @@ function App() {
   const [showHomepage, setShowHomepage] = useState(true);
   const [showAboutpage, setShowAboutpage] = useState(false);
   const [showContactpage, setShowContactpage] = useState(false);
+  const [showCreateRpage, setShowCreateRpage] = useState(false);
 
+
+  const handleCreateRClick = () => {
+    setShowCreateRpage(true);
+    setShowSignUp(false);
+    setShowSignIn(false); 
+    setShowHowitwork(false);
+    setShowHomepage(false);
+    setShowAboutpage(false);
+    setShowContactpage(false);
+  };
 
   const handleSignUpClick = () => {
     setShowSignUp(true);
@@ -47,6 +59,7 @@ function App() {
     setShowHomepage(false);
     setShowAboutpage(false);
     setShowContactpage(false);
+    setShowCreateRpage(false);
 
   };
 
@@ -57,6 +70,7 @@ function App() {
     setShowSignUp(false);
     setShowAboutpage(false);
     setShowContactpage(false);
+    setShowCreateRpage(false);
   };
   
   const handleAboutpage = () => {
@@ -66,6 +80,7 @@ function App() {
     setShowSignIn(false);
     setShowSignUp(false);
     setShowContactpage(false);
+    setShowCreateRpage(false);
   };
 
   const handleContactpage = () => {
@@ -75,6 +90,7 @@ function App() {
     setShowHomepage(false);
     setShowSignIn(false);
     setShowSignUp(false);
+    setShowCreateRpage(false);
   };
 
   return (
@@ -82,7 +98,7 @@ function App() {
       {!showSignUp && !showSignIn && !showHowitwork && showHomepage && !showContactpage &&(
         <>
           
-          <Navbar onSignUpClick={handleSignUpClick} onSignInClick={handleSignInClick} onHTworkclick={handlehowitwork} onHomebtnclick={handlehomepage} onAboutbtnclick={handleAboutpage} onContactbtnclick={handleContactpage} />
+          <Navbar onSignUpClick={handleSignUpClick} onSignInClick={handleSignInClick} onHTworkclick={handlehowitwork} onHomebtnclick={handlehomepage} onAboutbtnclick={handleAboutpage} onContactbtnclick={handleContactpage} onCRbtnclick={handleCreateRClick} />
           <Home /> 
           <Footer /> 
         </>
@@ -93,7 +109,7 @@ function App() {
 
       {showHowitwork && !showSignIn && !showSignUp && !showContactpage && !showHomepage &&(
             <>
-              <Navbar onSignUpClick={handleSignUpClick} onSignInClick={handleSignInClick} onHTworkclick={handlehowitwork} onHomebtnclick={handlehomepage} onAboutbtnclick={handleAboutpage} onContactbtnclick={handleContactpage} />
+              <Navbar onSignUpClick={handleSignUpClick} onSignInClick={handleSignInClick} onHTworkclick={handlehowitwork} onHomebtnclick={handlehomepage} onAboutbtnclick={handleAboutpage} onContactbtnclick={handleContactpage} onCRbtnclick={handleCreateRClick} />
               <Howitwork />
               <Footer/>
             </>
@@ -102,7 +118,7 @@ function App() {
 
       {showAboutpage && !showHowitwork && !showSignIn && !showSignUp && !showContactpage && (
             <>
-              <Navbar onSignUpClick={handleSignUpClick} onSignInClick={handleSignInClick} onHTworkclick={handlehowitwork} onHomebtnclick={handlehomepage} onAboutbtnclick={handleAboutpage} onContactbtnclick={handleContactpage} />
+              <Navbar onSignUpClick={handleSignUpClick} onSignInClick={handleSignInClick} onHTworkclick={handlehowitwork} onHomebtnclick={handlehomepage} onAboutbtnclick={handleAboutpage} onContactbtnclick={handleContactpage} onCRbtnclick={handleCreateRClick} />
               <About/>
               <Footer/>
             </>
@@ -111,8 +127,17 @@ function App() {
 
       {showContactpage && !showAboutpage && !showHowitwork && !showSignIn && !showSignUp && (
             <>
-              <Navbar onSignUpClick={handleSignUpClick} onSignInClick={handleSignInClick} onHTworkclick={handlehowitwork} onHomebtnclick={handlehomepage} onAboutbtnclick={handleAboutpage} onContactbtnclick={handleContactpage} />
+              <Navbar onSignUpClick={handleSignUpClick} onSignInClick={handleSignInClick} onHTworkclick={handlehowitwork} onHomebtnclick={handlehomepage} onAboutbtnclick={handleAboutpage} onContactbtnclick={handleContactpage} onCRbtnclick={handleCreateRClick} />
               <Contact/>
+              <Footer/>
+            </>
+
+      )}
+
+      {showCreateRpage && !showContactpage && !showAboutpage && !showHowitwork && !showSignIn && !showSignUp && (
+            <>
+              <Navbar onSignUpClick={handleSignUpClick} onSignInClick={handleSignInClick} onHTworkclick={handlehowitwork} onHomebtnclick={handlehomepage} onAboutbtnclick={handleAboutpage} onContactbtnclick={handleContactpage} onCRbtnclick={handleCreateRClick} />
+              <Createroom/>
               <Footer/>
             </>
 

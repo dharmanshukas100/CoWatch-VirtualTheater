@@ -260,6 +260,7 @@ input:focus {
     display: flex;
     align-items: center;
     justify-content: space-around;
+    height: 170px;
 }
 .platforms img{
     width: 150px;
@@ -688,4 +689,151 @@ font-size: 18px;
     font-weight: 700;
     color: #7C3AED;
 
+}
+
+/* ---------CreateRoom Page************ */
+.headinput{
+
+}
+.headpara{
+    color: #400A9C;
+    font-size: 16px;
+    font-weight: 600;
+}
+.headinput{
+    width: 545px;
+    padding: 13px;
+    background-color: #D9D9D9;
+    border: none;
+    border-radius: 10px;
+}
+.Chooseplateform img{
+    width: 150px;
+    background-color: #d9d9d954;
+    padding: 40px 32px;
+    border-radius: 10px;
+    height: 50px;
+    margin-bottom: 15px;
+}
+.Chooseplateform img:hover{
+    background-color: #7c3aed3b;
+    border: 4px solid #400A9C;
+}
+.subhead-CR{
+    font-size: 16px;
+    font-weight: 500;
+    padding-left: 15px;
+    color: #000000;
+}
+.Room-set-Label{
+    color: #000000;
+    font-size: 16px;
+    padding-left: 30px;
+    width: 290px;
+}
+
+/* *******sliderCheck ///////*/
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 31px;
+    height: 31px;
+  }
+  
+  /* Hide default HTML checkbox */
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  /* The slider */
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 23px;
+    width: 23px;
+    left: 6px;
+    bottom: 4px;
+    background-color: #400A9C;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: #D9D9D9;
+    border: 1px solid #400A9C;
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px #D9D9D9;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+
+
+/* continue --- createRoomPage */
+
+.create-btn{
+    padding: 10px 18px;
+    background-color: #400A9C;
+    border: 2px solid #6318E3;
+    color: #FFFFFF;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    margin: 25px;
+}
+.cancel-btn{
+    padding: 10px 18px;
+    /* background-color: #400A9C; */
+    border: 2px solid #6318E3;
+    color: #6318E3;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 700;
+}
+.Div-Room-create{
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    gap: 33px;
+    border: 2px solid #400A9C;
+    padding: 36px;
+    border-radius: 10px;
+}
+.Setting-Choice{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 8px;
+}
+.btn-cancel-create-room{
+    text-align: end;
 }
