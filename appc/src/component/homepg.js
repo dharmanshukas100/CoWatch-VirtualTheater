@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link, useNavigate } from 'react-router-dom';
 import Icon1 from '../assets/home ele 1.png'
 import IconH21 from '../assets/home2 icon1.png'
 import IconH22 from '../assets/home2 icon2.png'
@@ -20,14 +21,30 @@ import IconH54 from '../assets/APrime.png'
 import '../home.css'
 
 
-export default function Homepg() {
+export default function Homepg({ onCRbtnclick, onHTworkclick , onsignupclick }) {
+
+    const navigate = useNavigate();
+
+    const navigateTo = () => {
+        const token = localStorage.getItem('token');
+        if (token) {
+        navigate('/createroom');
+        console.log("pathtoCR")
+        } else {
+        onsignupclick();
+        navigate('/signup');
+        console.log("pathtosignup")
+        }
+    }
+
+
   return (
     <>
     <section id='sec1-home'>
         <div className='home1 Poppins'>
             <h1 className='home1-head'>Watch<span className='home1-span'> Together</span>, <br></br>No Matter the<span className='home1-span'> Distance</span></h1>
             <h5 className='home1-h5 Inter'>Stream your favourite movies and shows with friends in real-time. Create virtual rooms, chat, and sync playback</h5>
-            <button className='home1-btn Nunito'>GET STARTED</button>
+            <button className='home1-btn Nunito' onClick={navigateTo}>GET STARTED</button>
         </div>
         <div className='home1-icon'>
             <img src={Icon1} alt="CoWatch The Virtual Theatre"/>
@@ -36,7 +53,9 @@ export default function Homepg() {
     <section className='Padding'>
         <div className='home2-Mhead'>
             <h1 className='home2-h1'>What Makes CoWatch Special?<div className='lineIcon'></div></h1>
-            <button className='home2-btn Nunito'>EXPLORE FEATURES</button>
+            <Link to="/howitwork">
+                <button className='home2-btn Nunito' onClick={onHTworkclick}>EXPLORE FEATURES</button>
+            </Link>
         </div>
         <div className='home2-feature'>
             <div className='home2-card Poppins'>
@@ -56,7 +75,7 @@ export default function Homepg() {
     <section className='Padding'>
         <div className='home2-Mhead'>
             <h1 className='home2-h1'>How CoWatch Works?<div className='lineIcon'></div></h1>
-            <button className='home2-btn Nunito'>TRY IT NOW</button>
+            <button className='home2-btn Nunito' onClick={navigateTo} >TRY IT NOW</button>
         </div>
         <div className='home3-Subsec'>
             <div className='home3-options Poppins'>
@@ -104,7 +123,7 @@ export default function Homepg() {
     <section className='Padding'>
         <div className='home2-Mhead'>
             <h1 className='home2-h1'>Platform Supported On CoWatch<div className='lineIcon'></div></h1>
-            <button className='home2-btn Nunito'>TRY IT NOW</button>
+            <button className='home2-btn Nunito' onClick={navigateTo}>TRY IT NOW</button>
         </div>
         <div className='platforms'>
             <img src={IconH51} alt="Netflix" />

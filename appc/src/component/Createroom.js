@@ -29,23 +29,23 @@ export default function Createroom() {
                 <p className='subhead-CR Inter'>Control permissions for participants</p>
                 <div className='Setting-Choice Nunito'>
                     <label className='Room-set-Label'>Allow others to control playback</label>
-                    <label class="switch Room-set-Label">
+                    <label className="switch Room-set-Label">
                         <input type="checkbox"/>
-                        <span class="slider round"></span>
+                        <span className="slider round"></span>
                     </label>
                 </div>
                 <div className='Setting-Choice Nunito'>
                     <label className='Room-set-Label'>Allow others to control mic</label>
-                    <label class="switch Room-set-Label">
+                    <label className="switch Room-set-Label">
                         <input type="checkbox"/>
-                        <span class="slider round"></span>
+                        <span className="slider round"></span>
                     </label>
                 </div>
                 <div className='Setting-Choice Nunito'>
                     <label className='Room-set-Label'>Allow others to control webcam</label>
-                    <label class="switch Room-set-Label">
+                    <label className="switch Room-set-Label">
                         <input type="checkbox"/>
-                        <span class="slider round"></span>
+                        <span className="slider round"></span>
                     </label>
                 </div>
            </div>

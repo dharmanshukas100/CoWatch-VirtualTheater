@@ -1,5 +1,6 @@
 import './App.css';
 import React, { useState } from 'react';
+import { Route, Routes, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import Navbar from './component/navbar';
 import Home from './component/homepg';
 import Footer from './component/footer';
@@ -9,141 +10,85 @@ import Howitwork from './component/Howitwork';
 import About from './component/About';
 import Contact from './component/Contact';
 import Createroom from './component/Createroom';
+import Dashboard from './component/Dashboard';
+import RefrshHandler from './RefrshHandler';
 
 function App() {
-  const [showSignUp, setShowSignUp] = useState(false);
-  const [showSignIn, setShowSignIn] = useState(false);
-  const [showHowitwork, setShowHowitwork] = useState(false);
-  const [showHomepage, setShowHomepage] = useState(true);
-  const [showAboutpage, setShowAboutpage] = useState(false);
-  const [showContactpage, setShowContactpage] = useState(false);
-  const [showCreateRpage, setShowCreateRpage] = useState(false);
+  const [showSignup, setShowSignup] = useState(false);
+  const [showSignin, setShowSignin] = useState(false);
+  // const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [prevPath, setPrevPath] = useState('/'); // State to store the last visited path
+  const navigate = useNavigate();
+  const location = useLocation();
 
 
-  const handleCreateRClick = () => {
-    setShowCreateRpage(true);
-    setShowSignUp(false);
-    setShowSignIn(false); 
-    setShowHowitwork(false);
-    setShowHomepage(false);
-    setShowAboutpage(false);
-    setShowContactpage(false);
+  // const PrivateRoute = ({ element }) => {
+  //   return isAuthenticated ? element : <Navigate to="/" />
+  // }
+
+  const handlesignupClick = () => {
+    setPrevPath(location.pathname); // Save the current path before navigating to SignUp
+    setShowSignup(true);
+    setShowSignin(false);
+    navigate("/signup");
   };
 
-  const handleSignUpClick = () => {
-    setShowSignUp(true);
-    setShowSignIn(false); 
-    setShowHowitwork(false);
-    setShowHomepage(false);
-    setShowAboutpage(false);
+  const handlesigninClick = () => {
+    setPrevPath(location.pathname); // Save the current path before navigating to SignIn
+    setShowSignin(true);
+    setShowSignup(false);
+    navigate("/login");
   };
 
-  const handleSignInClick = () => {
-    setShowSignIn(true);
-    setShowSignUp(false);
-    setShowHowitwork(false);
-    setShowHomepage(false);
-    setShowAboutpage(false);
-    setShowContactpage(false);
-  };
-
+  // Function to handle back button click
   const handleBackBtnClick = () => {
-    setShowSignUp(false);
-    setShowSignIn(false);
-    setShowHomepage(true);
-    // setShowAboutpage(true);
+    setShowSignup(false);
+    setShowSignin(false);
+    navigate(prevPath); // Navigate back to the previously stored path
   };
 
-  const handlehowitwork = () => {
-    setShowHowitwork(true);
-    setShowHomepage(false);
-    setShowAboutpage(false);
-    setShowContactpage(false);
-    setShowCreateRpage(false);
-
-  };
-
-  const handlehomepage = () => {
-    setShowHowitwork(false);
-    setShowHomepage(true);
-    setShowSignIn(false);
-    setShowSignUp(false);
-    setShowAboutpage(false);
-    setShowContactpage(false);
-    setShowCreateRpage(false);
-  };
-  
-  const handleAboutpage = () => {
-    setShowAboutpage(true);
-    setShowHowitwork(false);
-    setShowHomepage(false);
-    setShowSignIn(false);
-    setShowSignUp(false);
-    setShowContactpage(false);
-    setShowCreateRpage(false);
-  };
-
-  const handleContactpage = () => {
-    setShowContactpage(true);
-    setShowAboutpage(false);
-    setShowHowitwork(false);
-    setShowHomepage(false);
-    setShowSignIn(false);
-    setShowSignUp(false);
-    setShowCreateRpage(false);
+  // Function to reset signup/signin state on successful signup
+  const handleRegisterSuccess = () => {
+    setShowSignup(false);
+    setShowSignin(false);
   };
 
   return (
     <div className="App">
-      {!showSignUp && !showSignIn && !showHowitwork && showHomepage && !showContactpage &&(
+      {/* <RefrshHandler setIsAuthenticated={setIsAuthenticated} /> */}
+      {(!showSignin && !showSignup) && (
         <>
-          
-          <Navbar onSignUpClick={handleSignUpClick} onSignInClick={handleSignInClick} onHTworkclick={handlehowitwork} onHomebtnclick={handlehomepage} onAboutbtnclick={handleAboutpage} onContactbtnclick={handleContactpage} onCRbtnclick={handleCreateRClick} />
-          <Home /> 
-          <Footer /> 
+          <Navbar onsigninclick={handlesigninClick} onsignupclick={handlesignupClick} />
+          <Routes>
+            <Route path="/" element={<Home onsignupclick={handlesignupClick} />} />
+            <Route path="/howitwork" element={<Howitwork onsignupclick={handlesignupClick} />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/createroom" element={<Createroom />} />
+            <Route path="/Dashboard" element={<Dashboard/>} />
+            <Route path="*" element={<Navigate to="/" />} />
+          </Routes>
+          <Footer />
         </>
       )}
 
-      {showSignUp && <SignUp OnBackBtnClick={handleBackBtnClick} onSignInClick={handleSignInClick} />}
-      {showSignIn && <SignIn OnBackBtnClick={handleBackBtnClick} onSignUpClick={handleSignUpClick} />}
-
-      {showHowitwork && !showSignIn && !showSignUp && !showContactpage && !showHomepage &&(
-            <>
-              <Navbar onSignUpClick={handleSignUpClick} onSignInClick={handleSignInClick} onHTworkclick={handlehowitwork} onHomebtnclick={handlehomepage} onAboutbtnclick={handleAboutpage} onContactbtnclick={handleContactpage} onCRbtnclick={handleCreateRClick} />
-              <Howitwork />
-              <Footer/>
-            </>
-
+      {showSignup && (
+        <Routes>
+          <Route
+            path="/signup"
+            element={<SignUp OnBackBtnClick={handleBackBtnClick} handleRegisterSuccess={handleRegisterSuccess} onsigninclick={handlesigninClick} />}
+          />
+        </Routes>
       )}
 
-      {showAboutpage && !showHowitwork && !showSignIn && !showSignUp && !showContactpage && (
-            <>
-              <Navbar onSignUpClick={handleSignUpClick} onSignInClick={handleSignInClick} onHTworkclick={handlehowitwork} onHomebtnclick={handlehomepage} onAboutbtnclick={handleAboutpage} onContactbtnclick={handleContactpage} onCRbtnclick={handleCreateRClick} />
-              <About/>
-              <Footer/>
-            </>
-
+      {showSignin && (
+        <Routes>
+          <Route
+            path="/login"
+            element={<SignIn OnBackBtnClick={handleBackBtnClick} handleRegisterSuccess={handleRegisterSuccess} onsignupclick={handlesignupClick} />}
+          />
+        </Routes>
       )}
-
-      {showContactpage && !showAboutpage && !showHowitwork && !showSignIn && !showSignUp && (
-            <>
-              <Navbar onSignUpClick={handleSignUpClick} onSignInClick={handleSignInClick} onHTworkclick={handlehowitwork} onHomebtnclick={handlehomepage} onAboutbtnclick={handleAboutpage} onContactbtnclick={handleContactpage} onCRbtnclick={handleCreateRClick} />
-              <Contact/>
-              <Footer/>
-            </>
-
-      )}
-
-      {showCreateRpage && !showContactpage && !showAboutpage && !showHowitwork && !showSignIn && !showSignUp && (
-            <>
-              <Navbar onSignUpClick={handleSignUpClick} onSignInClick={handleSignInClick} onHTworkclick={handlehowitwork} onHomebtnclick={handlehomepage} onAboutbtnclick={handleAboutpage} onContactbtnclick={handleContactpage} onCRbtnclick={handleCreateRClick} />
-              <Createroom/>
-              <Footer/>
-            </>
-
-      )}
-
-
     </div>
   );
 }

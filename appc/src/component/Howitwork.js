@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { Link } from 'react-router-dom';
 import HWIcon1 from '../assets/IconPopcornFilm.png'
 import HWIcon2 from '../assets/shareroomlinkSS.png'
 import HWIcon3 from '../assets/virtualroompage.png'
@@ -57,7 +57,9 @@ export default function Howitwork() {
           <p className='Quote-Bottom Poppins'>Ready to start watching together? Join CoWatch and create your first room!</p>
         </div>
         <div className='Createroombtn-div'>
-          <button className='Createroombtn Nunito'>Create Your First Room</button>
+          <Link to="/createroom">
+            <button className='Createroombtn Nunito'>Create Your First Room</button>
+          </Link>
         </div>
 
 

@@ -1,0 +1,4 @@
+#ignore private shares
+/.env
+/node_modules
+
