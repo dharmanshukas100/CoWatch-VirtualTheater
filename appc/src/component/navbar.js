@@ -36,10 +36,18 @@ export default function Navbar({ onsigninclick, onsignupclick }) {
     }, 1000);
   };
 
-  
+  const handleCreateRoomClick = (e) => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      e.preventDefault();
+      onsigninclick();
+      navigate('/login'); // Redirects to login if no token
+    }
+  };
+
   const toggleUserDetails = () => {
     setShowUserDetails((prevShow) => !prevShow);
-    };
+  };
 
   return (
     <>
@@ -53,7 +61,7 @@ export default function Navbar({ onsigninclick, onsignupclick }) {
               <Link to="/" className="nav-link">Home</Link>
             </li>
             <li className='Inter'>
-              <Link to="/createroom" className="nav-link">Create Room</Link>
+              <Link to="/createroom" className="nav-link" onClick={handleCreateRoomClick}>Create Room</Link>
             </li>
             <li className='Inter'>
               <Link to="/howitwork" className="nav-link">How It Works</Link>
@@ -100,7 +108,7 @@ export default function Navbar({ onsigninclick, onsignupclick }) {
           </>
         )}
       </nav>
-      <ToastContainer />
+      <ToastContainer  autoClose={1000} />
     </>
   );
 }
