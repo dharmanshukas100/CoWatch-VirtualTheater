@@ -11,7 +11,7 @@ import About from './component/About';
 import Contact from './component/Contact';
 import Createroom from './component/Createroom';
 import Dashboard from './component/Dashboard';
-import RefrshHandler from './RefrshHandler';
+// import RefrshHandler from './RefrshHandler';
 
 function App() {
   const [showSignup, setShowSignup] = useState(false);
@@ -22,9 +22,7 @@ function App() {
   const location = useLocation();
 
 
-  // const PrivateRoute = ({ element }) => {
-  //   return isAuthenticated ? element : <Navigate to="/" />
-  // }
+  
 
   const handlesignupClick = () => {
     setPrevPath(location.pathname); // Save the current path before navigating to SignUp
@@ -55,7 +53,6 @@ function App() {
 
   return (
     <div className="App">
-      {/* <RefrshHandler setIsAuthenticated={setIsAuthenticated} /> */}
       {(!showSignin && !showSignup) && (
         <>
           <Navbar onsigninclick={handlesigninClick} onsignupclick={handlesignupClick} />

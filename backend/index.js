@@ -12,8 +12,14 @@ app.get('/ping', (req, res) => {
     res.send('PONG');
 });
 
+const corsOptions = {
+    origin: 'https://co-watch.vercel.app',
+    methods: 'GET,POST,PUT,DELETE',
+    credentials: true,
+  };
+
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cors(corsOptions));
 app.use('/auth', AuthRouter);
 
 
