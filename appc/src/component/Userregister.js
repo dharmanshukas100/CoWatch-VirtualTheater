@@ -44,7 +44,7 @@ export default function Userregister({ OnBackBtnClick, handleRegisterSuccess, on
       return handleError('Enter complete Details')
     }
     try {
-      const url = "https://co-watch-backend.vercel.app/auth/signup";
+      const url = `https://co-watch-backend.vercel.app/auth/signup`;
       const response = await fetch(url, {
         method:"POST",
         headers: {
