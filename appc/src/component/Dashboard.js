@@ -6,7 +6,7 @@ export default function Dashboard() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch('http://localhost:5000/auth/createroom')
+    fetch('https://co-watch.vercel.app/auth/createroom')
       .then((res) => res.json())
       .then((rooms) => setRooms(rooms))
       .catch((error) => console.error('Error fetching rooms:', error));
