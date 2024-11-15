@@ -12,9 +12,10 @@ const io = new socketIo.Server(server, {
   cors: {
     origin: [
       "http://localhost:3000", // Local frontend during development
-      "https://co-watch-virtual-theater-front.vercel.app" // Deployed frontend
+      "https://co-watch-main.vercel.app" // Deployed frontend
     ],
-    methods: ["GET", "POST"]
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true 
   }
 });
 
@@ -28,7 +29,7 @@ app.use(bodyParser.json());
 // Dynamic CORS configuration
 const allowedOrigins = [
   "http://localhost:3000", // Local frontend during development
-  "https://co-watch-virtual-theater-front.vercel.app" // Deployed frontend
+  "https://co-watch-main.vercel.app" // Deployed frontend
 ];
 
 app.use(cors({
