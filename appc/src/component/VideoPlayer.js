@@ -14,7 +14,7 @@ const JoinRoom = () => {
     useEffect(() => {
         const fetchVideoLink = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/auth/join/${roomId}`);
+                const response = await fetch(`https://co-watch.vercel.app/auth/join/${roomId}`);
                 const data = await response.json();
 
                 if (response.ok) {
