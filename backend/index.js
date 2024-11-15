@@ -6,17 +6,15 @@ const AuthRouter = require('./Routes/AuthRouter');
 const socketIo = require('socket.io');
 const http = require('http');
 
-
-// app.use('/api', roomRoutes);
-
-
-
 const server = http.createServer(app);
 
 const io = new socketIo.Server(server, {
   cors: {
-      origin: "http://localhost:3000",  // Allow frontend's origin
-      methods: ["GET", "POST"]
+    origin: [
+      "http://localhost:3000", // Local frontend during development
+      "https://co-watch-virtual-theater-front.vercel.app" // Deployed frontend
+    ],
+    methods: ["GET", "POST"]
   }
 });
 
@@ -26,11 +24,27 @@ const PORT = process.env.PORT || 5000;
 
 // Middleware setup
 app.use(bodyParser.json());
+
+// Dynamic CORS configuration
+const allowedOrigins = [
+  "http://localhost:3000", // Local frontend during development
+  "https://co-watch-virtual-theater-front.vercel.app" // Deployed frontend
+];
+
 app.use(cors({
-  origin: "http://localhost:3000",  // Allow frontend's origin
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or Postman)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) {
+      // Origin is not allowed
+      return callback(new Error('Not allowed by CORS'));
+    }
+    return callback(null, true);
+  },
   methods: ["GET", "POST"],
-  credentials: true  // Allow credentials if needed
+  credentials: true // Allow cookies and credentials
 }));
+
 app.use('/auth', AuthRouter);
 
 // Single consolidated Socket.IO connection handler
