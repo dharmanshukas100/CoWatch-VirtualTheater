@@ -11,3 +11,283 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+
+.App{
+  /* background-color: #333; */
+  width: 100vw;
+  height: 100vh;
+}
+.room{
+  display: flex;
+  justify-content: space-between;
+}
+
+/* =======================mid-section======================== */
+.main-video{
+  width: 62.5rem;
+  height: 35.2rem;
+  border-radius:1rem;
+  
+}
+.main-video video{
+  width: 62.5rem;
+  height:35.2rem;
+  border: 1px solid #fff;
+  border-radius:0.8rem;
+  
+}
+
+/* ====================left-side-section==================== */
+
+.sidebar{
+  
+  display: flex;
+  width: 225px;
+  background-color: #333;
+  margin: 0px 10px;
+  overflow: hidden;
+  flex-direction: column;
+  row-gap: 10px;
+  
+}
+
+.participant{
+  /* background-color:white; */
+  width: 169px;
+  height: 300px;
+  border: 2px solid #7C3AED;
+  border-radius:10px;
+  gap: 10px;
+  background-color:red;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3); /* x,y,blur,color */
+}
+
+
+
+.box-inner-shadow{
+  position:absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 20%; /* Adjust the height to control gradient coverage*/
+  background: linear-gradient(0deg, black 5%, transparent 80%);
+
+}
+
+.participant img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  
+}
+
+.participant-name{
+  
+      position: absolute;
+      bottom: 5px;
+      color: white;
+      font-size: 1rem;
+      padding: 5px 10px;
+}
+
+.status-icons{
+  position: absolute;
+  height: 30px;
+  width: 30px;
+  background-color: #7C3AED;
+  top: 5px;
+  bottom: 10px;
+  right: 5px;
+  justify-items: center;
+  border-radius: 50%;
+  /* justify-content: center;*/ 
+}
+.status-icons img{
+  position: absolute;
+  height: 20px;
+  width:auto;
+  top: 5px;
+  right: 5px;   
+}
+
+.chat-section{
+  background-color: #D9D9D9;
+  border-radius:10px;
+  margin: 0 10px;
+
+}
+
+/* ====================right-chat-section================== */
+/* Container for the whole chat interface */
+.chat-container {
+  width: 300px;
+  height: 620px;
+  background-color: #D9D9D9;
+  border-radius: 10px;
+  border: 0px solid #9b59b6;
+  box-shadow: 0px 0px 8px #9b59b6; /* x,y,blur,color */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+  margin: 0 5px
+}
+
+/* Tabs styling for Chat and Participants */
+.chat-tabs {
+  display: flex;
+  justify-content: space-around;
+  background-color: #907D9B;
+  border-radius: 15px 15px;
+  color: white;
+  padding: 5px;
+  margin: 10px 5px
+  
+}
+
+.chat-tabs div {
+  flex: 1;
+  text-align: center;
+  padding: 8px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.chat-tabs .active {
+  background-color: #7C3AED;
+  color: white;
+}
+
+/* Chat messages container */
+.chat-messages {
+  flex: 1;
+  padding: 8px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Styles for message bubbles */
+.message {
+  max-width: 70%;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+}
+
+.message.sent {
+  align-self: flex-end;
+  text-align: right;
+}
+
+.message.received {
+  align-self: flex-start;
+  text-align: left;
+}
+
+.message .text {
+  background-color: #9E8FA7;
+  padding: 8px;
+  border-radius: 10px;
+  color: #3B3C3D;
+  display: inline-block;
+}
+
+.message.sent .text {
+  background-color: #9E8FA7;
+  color: #3B3C3D;
+}
+
+.message .timestamp {
+  font-size: 10px;
+  color: #6e6b6b;
+  margin-top: 2px;
+}
+
+/* Input area styling */
+.chat-input {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  /* border-top: 1px solid #d1a7e0; */
+  background-color: #D9D9D9;
+}
+
+.chat-input input[type="text"] {
+  flex: 1;
+  padding: 8px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  background-color: #3B3C3D;
+  font-size: 14px;
+  color: #fff;
+}
+
+.chat-input input[type="text"]::placeholder {
+  color: #979898;
+}
+
+.chat-input button {
+  background-color: #9b59b6;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 8px;
+  margin-left: 1px;
+  cursor: pointer;
+}
+
+/* Profile image for received messages */
+.message.received .profile-pic {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  margin-right: 5px;
+  display: inline-block;
+}
+
+/* Layout for received message with profile pic */
+.received .text {
+  display: inline-flex;
+  align-items: center;
+}
+
+
+/* ======================= controls===================== */
+
+.control-panel {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #333; /* Dark background color */
+  padding: 10px 20px;
+  border-radius: 15px; /* Rounded corners */
+}
+
+.control-button {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff; /* White background for the button */
+  border-radius: 50%; /* Circular button */
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.control-button:hover {
+  background-color: #ddd; /* Slightly darker color on hover */
+}
+
+.icon {
+  font-size: 24px;
+  color: #000; /* Icon color */
+}

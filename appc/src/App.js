@@ -11,45 +11,58 @@ import About from './component/About';
 import Contact from './component/Contact';
 import Createroom from './component/Createroom';
 import Dashboard from './component/Dashboard';
-// import RefrshHandler from './RefrshHandler';
+// import VideoCall from './component/VideoCall';
+// import Chat from './component/Chat';
+
+import Sidebar from './component/Sidebar';
+import VideoPlayer from './component/VideoPlayer';
+import Chat from './component/Chat';
+import { useParams } from "react-router-dom";
+
 
 function App() {
   const [showSignup, setShowSignup] = useState(false);
-  const [showSignin, setShowSignin] = useState(false);
-  // const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [prevPath, setPrevPath] = useState('/'); // State to store the last visited path
+  const [participants] = useState([
+      { name: 'Alice', image: 'url-to-image', isMuted: false },
+      { name: 'Bob', image: 'url-to-image', isMuted: true },
+    ]);
+  const [messages, setMessages] = useState([]);
+
+  const sendMessage = (msg) => {
+    setMessages([...messages, { user: 'You', text: msg }]);
+  };
+
+    const [showSignin, setShowSignin] = useState(false);
+  const [prevPath, setPrevPath] = useState('/'); 
   const navigate = useNavigate();
   const location = useLocation();
 
-
-  
-
   const handlesignupClick = () => {
-    setPrevPath(location.pathname); // Save the current path before navigating to SignUp
+    setPrevPath(location.pathname);
     setShowSignup(true);
     setShowSignin(false);
     navigate("/signup");
   };
 
   const handlesigninClick = () => {
-    setPrevPath(location.pathname); // Save the current path before navigating to SignIn
+    setPrevPath(location.pathname);
     setShowSignin(true);
     setShowSignup(false);
     navigate("/login");
   };
 
-  // Function to handle back button click
   const handleBackBtnClick = () => {
     setShowSignup(false);
     setShowSignin(false);
-    navigate(prevPath); // Navigate back to the previously stored path
+    navigate(prevPath);
   };
 
-  // Function to reset signup/signin state on successful signup
   const handleRegisterSuccess = () => {
     setShowSignup(false);
     setShowSignin(false);
   };
+
+  const { roomId } = useParams();
 
   return (
     <div className="App">
@@ -62,8 +75,17 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/createroom" element={<Createroom />} />
-            <Route path="/Dashboard" element={<Dashboard/>} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            {/* <Route path="/dashboard/video-call/:roomId" element={<VideoCall />} /> */}
             <Route path="*" element={<Navigate to="/" />} />
+            <Route path="/join/:roomId" element={
+              <div className="room">
+                <Sidebar participants={participants} />
+                <VideoPlayer video={{ url: 'url-to-video' }} />
+                <Chat messages={messages} sendMessage={sendMessage} />
+                {/* <Controls onMute={() => {}} onEmoji={() => {}} onSettings={() => {}} /> */}
+              </div>} 
+            />
           </Routes>
           <Footer />
         </>
@@ -86,6 +108,8 @@ function App() {
           />
         </Routes>
       )}
+      
+
     </div>
   );
 }
