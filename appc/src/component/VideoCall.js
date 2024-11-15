@@ -4,7 +4,7 @@ import io from 'socket.io-client';
 import { useParams } from 'react-router-dom';
 
 // Initialize socket connection
-const socket = io("http://localhost:5000");
+const socket = io("https://co-watch.vercel.app");
 
 const VideoCall = () => {
   const { roomId } = useParams();
