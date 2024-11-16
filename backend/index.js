@@ -69,8 +69,15 @@ io.on("connection", (socket) => {
   });
 
   // Chat messages
-  socket.on("sendMessage", (message) => {
-    io.to(message.roomId).emit("receiveMessage", message);
+  socket.on("sendMessage", ({ roomId, message }) => {
+    const payload = {
+      message,
+      senderId: socket.id,
+      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+    };
+    console.log(`Message from ${socket.id} to room ${roomId}: ${message}`);
+    // Emit the message to everyone in the room, including the sender
+    io.to(roomId).emit("receiveMessage", payload);
   });
 
   // Handle disconnection

@@ -1,31 +1,60 @@
-import React, { useState } from 'react';
-import '../index.css'; 
+import React, { useState, useEffect } from 'react';
+import io from 'socket.io-client';
+import '../index.css';
 
-const Chat = () => {
-  const [tab, setTab] = useState('Chat'); // State to manage active tab
-  const [messages, setMessages] = useState([
-    { id: 1, type: 'received', text: 'Hello', time: '09:02 PM', name: 'Name', profileImage: 'https://via.placeholder.com/25' },
-    { id: 2, type: 'sent', text: 'Hey!', time: '09:03 PM' },
-  ]);
-  const [message, setMessage] = useState(''); // State to manage the input message
+const socket = io("https://your-backend-url.com"); // Replace with your backend URL
 
-  const handleTabClick = (tabName) => setTab(tabName);
+const Chat = ({ roomId }) => {
+  const [tab, setTab] = useState('Chat'); // Manage active tab
+  const [messages, setMessages] = useState([]); // Chat messages
+  const [message, setMessage] = useState(''); // Input message
+
+  useEffect(() => {
+    // Join the room on component mount
+    socket.emit("joinRoom", roomId);
+  
+
+    socket.on("receiveMessage", (data) => {
+      console.log("Received message:", data);
+      setMessages((prevMessages) => [...prevMessages, data]);
+    });
+
+    
+    // Listen for new messages
+    socket.on("receiveMessage", (data) => {
+      setMessages((prevMessages) => [...prevMessages, data]);
+    });
+  
+    // Cleanup on component unmount
+    return () => {
+      socket.off("receiveMessage"); // Remove the listener
+      socket.disconnect();
+    };
+  }, [roomId]);
 
   const handleSendMessage = () => {
     if (message.trim()) {
-      setMessages([...messages, { id: Date.now(), type: 'sent', text: message, time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }]);
+      const payload = {
+        roomId,
+        message,
+      };
+      socket.emit("sendMessage", payload); // Emit the message to the server
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { message, senderId: "You", time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) },
+      ]);
       setMessage('');
     }
   };
 
   return (
     <div className="chat-container">
-      {/* Tabs for Chat and Participants */}
+      {/* Tabs */}
       <div className="chat-tabs">
-        <div className={tab === 'Chat' ? 'active' : ''} onClick={() => handleTabClick('Chat')}>
+        <div className={tab === 'Chat' ? 'active' : ''} onClick={() => setTab('Chat')}>
           Chat
         </div>
-        <div className={tab === 'Participants' ? 'active' : ''} onClick={() => handleTabClick('Participants')}>
+        <div className={tab === 'Participants' ? 'active' : ''} onClick={() => setTab('Participants')}>
           Participants
         </div>
       </div>
@@ -33,21 +62,16 @@ const Chat = () => {
       {/* Chat Messages Area */}
       {tab === 'Chat' && (
         <div className="chat-messages">
-          {messages.map((msg) => (
-            <div key={msg.id} className={`message ${msg.type}`}>
-              {msg.type === 'received' && (
+          {messages.map((msg, index) => (
+            <div key={index} className={`message ${msg.senderId === "You" ? 'sent' : 'received'}`}>
+              {msg.senderId !== "You" && (
                 <div className="text">
-                  <img src={msg.profileImage} alt="Profile" className="profile-pic" />
-                  <div className="message-content">
-                    <div className="participant-name">{msg.name}</div>
-                    <div className="text">{msg.text}</div>
-                  </div>
+                  <div className="participant-name">{msg.senderId}</div>
+                  <div className="text">{msg.message}</div>
                 </div>
               )}
-              {msg.type === 'sent' && (
-                <div className="text">
-                  {msg.text}
-                </div>
+              {msg.senderId === "You" && (
+                <div className="text">{msg.message}</div>
               )}
               <div className="timestamp">{msg.time}</div>
             </div>
