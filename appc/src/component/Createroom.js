@@ -41,7 +41,7 @@ export default function Createroom() {
 
     try {
       // Send POST request to the backend API to create the room
-      const response = await fetch('http://localhost:5000/auth/createroom', {
+      const response = await fetch('https://co-watch.vercel.app/auth/createroom', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
