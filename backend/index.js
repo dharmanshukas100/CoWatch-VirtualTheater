@@ -95,3 +95,86 @@ app.get('/ping', (req, res) => {
 server.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
+// const express = require('express');
+// const http = require('http');
+// const bodyParser = require('body-parser');
+// const cors = require('cors');
+// const socketIo = require('socket.io');
+// const dotenv = require('dotenv');
+// const AuthRouter = require('./Routes/AuthRouter');
+
+// // Load environment variables from .env
+// dotenv.config();
+
+// // Initialize Express app
+// const app = express();
+// const server = http.createServer(app);
+
+// // Database connection
+// require('./Models/db');
+
+// // Middleware setup
+// app.use(bodyParser.json());
+
+// // CORS setup
+// const allowedOrigins = [
+//   "http://localhost:3000",  // Local frontend during development
+//   "https://co-watch-main.vercel.app", // Deployed frontend
+// ];
+
+// app.use(cors({
+//   origin: allowedOrigins,
+//   methods: ["GET", "POST", "PUT", "DELETE"],
+//   credentials: true,
+// }));
+
+// // Route setup
+// app.use('/auth', AuthRouter);
+
+// // Socket.IO setup
+// const io = new socketIo.Server(server, {
+//   cors: {
+//     origin: allowedOrigins,
+//     methods: ["GET", "POST"],
+//     credentials: true,
+//   },
+// });
+
+// // Socket.IO connection handling
+// io.on("connection", (socket) => {
+//   console.log("New client connected:", socket.id);
+
+//   // Handle user joining a room
+//   socket.on("joinRoom", (roomId) => {
+//     socket.join(roomId);
+//     console.log(`User joined room: ${roomId}`);
+//     socket.to(roomId).emit("userJoined", { callerID: socket.id });
+//   });
+
+//   // Handle message sending
+//   socket.on("sendMessage", ({ roomId, message }) => {
+//     const payload = {
+//       message,
+//       senderId: socket.id,
+//       time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+//     };
+//     io.to(roomId).emit("receiveMessage", payload);
+//     console.log(`Message sent to room ${roomId}:`, payload);
+//   });
+
+//   // Handle disconnection
+//   socket.on("disconnect", () => {
+//     console.log("Client disconnected:", socket.id);
+//   });
+// });
+
+// // Test endpoint
+// app.get('/ping', (req, res) => {
+//   res.send('PONG');
+// });
+
+// // Start server
+// const PORT = process.env.PORT || 5000;
+// server.listen(PORT, () => {
+//   console.log(`Server is running on http://localhost:${PORT}`);
+// });

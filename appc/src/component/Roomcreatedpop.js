@@ -8,7 +8,7 @@ import '../home.css';
 
 export default function Roomcreatedpop({ roomId }) {
   // Construct the room link URL dynamically
-  const roomLink = `https://cowatch.com/room/${roomId}`;
+  const roomLink = `https://co-watch.vercel.app/room/${roomId}`;
 
   // Copy link function
   const copyLinkToClipboard = () => {
