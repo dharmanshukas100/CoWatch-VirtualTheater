@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 import '../index.css';
 
-const socket = io("https://your-backend-url.com"); // Replace with your backend URL
+const socket = io("https://cowatch.com/room/${roomId}"); // Replace with your backend URL
 
 const Chat = ({ roomId }) => {
   const [tab, setTab] = useState('Chat'); // Manage active tab
