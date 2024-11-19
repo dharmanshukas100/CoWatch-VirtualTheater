@@ -12,7 +12,6 @@ import Contact from './component/Contact';
 import Createroom from './component/Createroom';
 import Dashboard from './component/Dashboard';
 // import VideoCall from './component/VideoCall';
-// import Chat from './component/Chat';
 
 import Sidebar from './component/Sidebar';
 import VideoPlayer from './component/VideoPlayer';

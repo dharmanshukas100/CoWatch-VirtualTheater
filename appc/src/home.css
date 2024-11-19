@@ -1082,4 +1082,9 @@ font-size: 18px;
   
 
 
-
+.chatbox{
+    display: flex;
+    flex-direction: column;
+    align-items: normal;
+    height: 556px;
+}

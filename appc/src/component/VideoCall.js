@@ -1,10 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import SimplePeer from 'simple-peer';
-import io from 'socket.io-client';
 import { useParams } from 'react-router-dom';
 
-// Initialize socket connection
-const socket = io("https://co-watch.vercel.app");
 
 const VideoCall = () => {
   const { roomId } = useParams();

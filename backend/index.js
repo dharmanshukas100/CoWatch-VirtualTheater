@@ -1,21 +1,111 @@
+// const express = require('express');
+// const app = express();
+// const bodyParser = require('body-parser');
+// const cors = require('cors');
+// const AuthRouter = require('./Routes/AuthRouter');
+// const http = require('http');
+// const { Server } = require('socket.io');
+
+// const server = http.createServer(app);
+
+
+// const io = new Server(server, {
+//   cors: {
+//     origin: [
+//       "http://localhost:3000", // Local frontend during development
+//       "https://co-watch-main.vercel.app" // Deployed frontend
+//     ],
+//     methods: ["GET", "POST", "PUT", "DELETE"],
+//     credentials: true 
+//   }
+// });
+
+// require('dotenv').config();
+// require('./Models/db');
+// const PORT = process.env.PORT || 5000;
+
+// // Middleware setup
+// app.use(bodyParser.json());
+
+// // Dynamic CORS configuration
+// const allowedOrigins = [
+//   "http://localhost:3000", // Local frontend during development
+//   "https://co-watch-main.vercel.app" // Deployed frontend
+// ];
+
+// app.use(cors({
+//   origin: function (origin, callback) {
+//     // Allow requests with no origin (like mobile apps or Postman)
+//     if (!origin) return callback(null, true);
+//     if (allowedOrigins.indexOf(origin) === -1) {
+//       // Origin is not allowed
+//       return callback(new Error('Not allowed by CORS'));
+//     }
+//     return callback(null, true);
+//   },
+//   methods: ["GET", "POST"],
+//   credentials: true // Allow cookies and credentials
+// }));
+
+// app.use('/auth', AuthRouter);
+
+
+// io.on('connection', (socket) => {
+//   console.log('User connected');
+//   console.log('Socket id :',socket.id);
+
+//   socket.on("joinRoom", (roomId) => {
+//     socket.join(roomId);
+//     console.log(`User joined room: ${roomId}`);
+//     socket.to(roomId).emit("userJoined", { callerID: socket.id });
+//   });
+
+//   socket.on("sendMessage", ({ roomId, message, fname }) => {
+//     const payload = {
+//       message,
+//       fname,
+//       senderId: socket.id,
+//       time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+//     };
+//     socket.broadcast.to(roomId).emit("receiveMessage", payload); // Send to others in the room except sender
+//     console.log(`Message sent to room ${roomId}:`, payload);
+//   });
+  
+
+//   socket.on("disconnected", () => {
+//     console.log("User disconnected")
+//   })
+// }); 
+
+
+
+
+// app.get('/ping', (req, res) => {
+//   res.send('PONG');
+// });
+
+// // Start the combined server on the specified PORT
+// server.listen(PORT, () => {
+//   console.log(`Server is running on http://localhost:${PORT}`);
+// });
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const AuthRouter = require('./Routes/AuthRouter');
-const socketIo = require('socket.io');
 const http = require('http');
+const { Server } = require('socket.io');
 
 const server = http.createServer(app);
 
-const io = new socketIo.Server(server, {
+const io = new Server(server, {
   cors: {
     origin: [
       "http://localhost:3000", // Local frontend during development
       "https://co-watch-main.vercel.app" // Deployed frontend
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true 
+    credentials: true
   }
 });
 
@@ -48,45 +138,58 @@ app.use(cors({
 
 app.use('/auth', AuthRouter);
 
-// Single consolidated Socket.IO connection handler
-io.on("connection", (socket) => {
-  console.log("New client connected:", socket.id);
+// Participant tracking
+const participants = {}; // To track participants in rooms
 
-  // Join a room based on roomId
-  socket.on("joinRoom", (roomId) => {
+io.on('connection', (socket) => {
+  console.log('User connected:', socket.id);
+
+  // Handle joining a room
+  socket.on("joinRoom", ({ roomId, fname }) => {
     socket.join(roomId);
-    socket.to(roomId).emit("userJoined", { callerID: socket.id });
-    console.log(`User joined room: ${roomId}`);
+    console.log(`${fname} joined room: ${roomId}`);
+    
+    // Initialize room's participant list if not present
+    if (!participants[roomId]) {
+      participants[roomId] = [];
+    }
+  
+    // Prevent duplicate entries for the same socket ID
+    if (!participants[roomId].some((p) => p.id === socket.id)) {
+      participants[roomId].push({ id: socket.id, fname });
+    }
+  
+    // Notify everyone in the room about the updated participants list
+    io.to(roomId).emit("updateParticipants", participants[roomId]);
   });
+  
 
-  // Handle signaling data
-  socket.on("sendingSignal", (payload) => {
-    io.to(payload.userToSignal).emit("receivingSignal", { signal: payload.signal, id: socket.id });
-  });
-
-  socket.on("returningSignal", (payload) => {
-    io.to(payload.callerID).emit("receivingReturnedSignal", { signal: payload.signal, id: socket.id });
-  });
-
-  // Chat messages
-  socket.on("sendMessage", ({ roomId, message }) => {
+  // Handle sending messages
+  socket.on("sendMessage", ({ roomId, message, fname }) => {
     const payload = {
       message,
+      fname,
       senderId: socket.id,
       time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     };
-    console.log(`Message from ${socket.id} to room ${roomId}: ${message}`);
-    // Emit the message to everyone in the room, including the sender
-    io.to(roomId).emit("receiveMessage", payload);
+    socket.broadcast.to(roomId).emit("receiveMessage", payload); // Send to others in the room except sender
+    console.log(`Message sent to room ${roomId}:`, payload);
   });
 
-  // Handle disconnection
+  // Handle user disconnect
   socket.on("disconnect", () => {
-    console.log("Client disconnected:", socket.id);
+    for (const roomId in participants) {
+      participants[roomId] = participants[roomId].filter(
+        (participant) => participant.id !== socket.id
+      );
+  
+      // Notify room of updated participants
+      io.to(roomId).emit("updateParticipants", participants[roomId]);
+    }
+    console.log("User disconnected:", socket.id);
   });
 });
 
-// Test endpoint
 app.get('/ping', (req, res) => {
   res.send('PONG');
 });
@@ -95,86 +198,3 @@ app.get('/ping', (req, res) => {
 server.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
-// const express = require('express');
-// const http = require('http');
-// const bodyParser = require('body-parser');
-// const cors = require('cors');
-// const socketIo = require('socket.io');
-// const dotenv = require('dotenv');
-// const AuthRouter = require('./Routes/AuthRouter');
-
-// // Load environment variables from .env
-// dotenv.config();
-
-// // Initialize Express app
-// const app = express();
-// const server = http.createServer(app);
-
-// // Database connection
-// require('./Models/db');
-
-// // Middleware setup
-// app.use(bodyParser.json());
-
-// // CORS setup
-// const allowedOrigins = [
-//   "http://localhost:3000",  // Local frontend during development
-//   "https://co-watch-main.vercel.app", // Deployed frontend
-// ];
-
-// app.use(cors({
-//   origin: allowedOrigins,
-//   methods: ["GET", "POST", "PUT", "DELETE"],
-//   credentials: true,
-// }));
-
-// // Route setup
-// app.use('/auth', AuthRouter);
-
-// // Socket.IO setup
-// const io = new socketIo.Server(server, {
-//   cors: {
-//     origin: allowedOrigins,
-//     methods: ["GET", "POST"],
-//     credentials: true,
-//   },
-// });
-
-// // Socket.IO connection handling
-// io.on("connection", (socket) => {
-//   console.log("New client connected:", socket.id);
-
-//   // Handle user joining a room
-//   socket.on("joinRoom", (roomId) => {
-//     socket.join(roomId);
-//     console.log(`User joined room: ${roomId}`);
-//     socket.to(roomId).emit("userJoined", { callerID: socket.id });
-//   });
-
-//   // Handle message sending
-//   socket.on("sendMessage", ({ roomId, message }) => {
-//     const payload = {
-//       message,
-//       senderId: socket.id,
-//       time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-//     };
-//     io.to(roomId).emit("receiveMessage", payload);
-//     console.log(`Message sent to room ${roomId}:`, payload);
-//   });
-
-//   // Handle disconnection
-//   socket.on("disconnect", () => {
-//     console.log("Client disconnected:", socket.id);
-//   });
-// });
-
-// // Test endpoint
-// app.get('/ping', (req, res) => {
-//   res.send('PONG');
-// });
-
-// // Start server
-// const PORT = process.env.PORT || 5000;
-// server.listen(PORT, () => {
-//   console.log(`Server is running on http://localhost:${PORT}`);
-// });
