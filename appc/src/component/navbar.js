@@ -97,7 +97,7 @@ export default function Navbar({ onsigninclick, onsignupclick }) {
                 <h1>Welcome,</h1>
                 <p>{loggedInUserfname}{'\u00A0'}{loggedInUserlname}</p> 
               </div>
-              <Link to="/Dashboard">
+              <Link to="/dashboard">
                 <button className='User-container-options Nunito'>Dashboard</button>
               </Link>
               <Link>

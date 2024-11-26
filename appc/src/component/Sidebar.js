@@ -1,45 +1,89 @@
-// import React from 'react';
-// import '../home.css'
+// // import React from 'react';
+// // import VideoCall from './VideoCall';
+// // import '../index.css';
 
+// // const Sidebar = ({ roomId }) => {
+  
+// //   return(
+// //     <div className="sidebar">
+// //       <VideoCall roomId={roomId} />
+// //     </div>
+// //   )
+// // };
 
-// const chatSection = () => {
+// // export default Sidebar;
+// import React, { useState } from 'react';
+// import VideoCall from './VideoCall';
+// import JoinRoom from './VideoPlayer';
+// import '../index.css';
+
+// const Sidebar = ({ roomId }) => {
+//   const [isAudioEnabled, setIsAudioEnabled] = useState(true);
+//   const [isVideoEnabled, setIsVideoEnabled] = useState(true);
+
+//   const handleToggleAudio = () => {
+//     setIsAudioEnabled((prev) => !prev);
+//   };
+
+//   const handleToggleVideo = () => {
+//     setIsVideoEnabled((prev) => !prev);
+//   };
+
 //   return (
-//     <div className="chat-section">
-//       <div className="tabs">
-//         <button className="active-tab">Chat</button>
-//         <button>Participants</button>
-//       </div>
-//       <div className="messages">
-//         {/* Sample chat messages */}
-//         {[1, 2, 3, 4].map((message, index) => (
-//           <div key={index} className="message">
-//             <span className="message-name">Name</span>
-//             <p className="message-text">
-//               Hey! Ready for the movie? Can't wait to watch it!
-//             </p>
-//             <span className="message-time">09:05 PM</span>
-//           </div>
-//         ))}
-//       </div>
-//       <div className="message-input">
-//         <input type="text" placeholder="Send your message..." />
-//         <button className="send-button">Send</button>
-//       </div>
-//     </div>
-//   )
-// }
+//     <div className="sidebar">
+//     {/* //   <div className="controls">
+//     //     <button onClick={handleToggleAudio}>
+//     //       {isAudioEnabled ? 'Mute Audio' : 'Unmute Audio'}
+//     //     </button>
+//     //     <button onClick={handleToggleVideo}>
+//     //       {isVideoEnabled ? 'Turn Off Video' : 'Turn On Video'}
+//     //     </button>
+//     //   </div> */}
+//       <VideoCall
+//         roomId={roomId}
+//         isAudioEnabled={isAudioEnabled}
+//         isVideoEnabled={isVideoEnabled}
+//       />
+//       <JoinRoom/>
 
-// export default chatSection
-// src/components/Sidebar.js
-import React from 'react';
-import Participant from './Participant';
+//     </div>
+//   );
+// };
+
+// export default Sidebar;
+import React, { useState } from 'react';
+import VideoCall from './VideoCall';
+import JoinRoom from './VideoPlayer';
 import '../index.css';
-const Sidebar = ({ participants }) => (
-  <div className="sidebar">
-    {participants.map((participant, index) => (
-      <Participant key={index} participant={participant} />
-    ))}
-  </div>
-);
+
+const Sidebar = ({ roomId }) => {
+  const [isAudioEnabled, setIsAudioEnabled] = useState(true);
+  const [isVideoEnabled, setIsVideoEnabled] = useState(true);
+
+  const handleToggleAudio = () => {
+    setIsAudioEnabled((prev) => !prev);
+  };
+
+  const handleToggleVideo = () => {
+    setIsVideoEnabled((prev) => !prev);
+  };
+
+  return (
+    <div className="sidebar">
+      <VideoCall
+        roomId={roomId}
+        isAudioEnabled={isAudioEnabled}
+        isVideoEnabled={isVideoEnabled}
+      />
+      <JoinRoom
+        roomId={roomId}
+        isAudioEnabled={isAudioEnabled}
+        isVideoEnabled={isVideoEnabled}
+        toggleAudio={handleToggleAudio}
+        toggleVideo={handleToggleVideo}
+      />
+    </div>
+  );
+};
 
 export default Sidebar;

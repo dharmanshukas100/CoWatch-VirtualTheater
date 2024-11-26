@@ -2,10 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
 import socket from "../socket"; 
 
-export default function Dashboard() {
+export default function Dashboard({onJoinRoom}) {
   const [rooms, setRooms] = useState([]);
   const navigate = useNavigate();
-
 
   useEffect(() => {
     fetch('https://co-watch.vercel.app/auth/createroom')
@@ -15,10 +14,21 @@ export default function Dashboard() {
   }, []);
 
   const joinRoom = (roomId) => {
-    // Log room ID and navigate to video call page
+    const room = rooms.find((room) => room.roomId === roomId);
     const fname = localStorage.getItem('loggedInUserfname');
+
+    // Emit joinRoom event
     socket.emit("joinRoom", { roomId, fname });
-    console.log(`Joining room with ID: ${roomId}`);
+
+    // Emit startCall event for the room
+    socket.emit("startCall", { roomId });
+    
+    console.log(`Joining room and starting call for room ID: ${roomId}`);
+    
+    // onjoinroomclick();
+    onJoinRoom(room);
+
+    // Navigate to video call page
     navigate(`/join/${roomId}`);
   };
 
@@ -42,4 +52,3 @@ export default function Dashboard() {
     </div>
   );
 }
-

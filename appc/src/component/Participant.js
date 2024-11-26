@@ -1,6 +1,8 @@
 // src/components/Participant.js
 import React from 'react';
 import '../index.css';
+// import VideoCall from '../component/VideoCall.js';
+
 import volume from '../assets/volume.svg';
 const Participant = ({ participant }) => (
   <div className="participant">
@@ -24,6 +26,7 @@ const Participant = ({ participant }) => (
     <div className="status-icons">
       <img className="icon-microphone" src={volume} alt="Volume Icon" />
     </div> 
+    {/* <VideoCall/> */}
   </div>
 );
 

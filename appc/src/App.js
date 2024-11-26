@@ -1,6 +1,7 @@
 import './App.css';
 import React, { useState } from 'react';
 import { Route, Routes, Navigate, useNavigate, useLocation } from 'react-router-dom';
+import { MediaControlProvider } from './Context/MediaControlContext';
 import Navbar from './component/navbar';
 import Home from './component/homepg';
 import Footer from './component/footer';
@@ -16,6 +17,8 @@ import Dashboard from './component/Dashboard';
 import Sidebar from './component/Sidebar';
 import VideoPlayer from './component/VideoPlayer';
 import Chat from './component/Chat';
+import TopBar from './component/Topbar'
+
 import { useParams } from "react-router-dom";
 
 
@@ -31,7 +34,16 @@ function App() {
     setMessages([...messages, { user: 'You', text: msg }]);
   };
 
-    const [showSignin, setShowSignin] = useState(false);
+  const [currentRoom, setCurrentRoom] = useState(null);
+
+  // Function to update current room
+  const handleJoinRoom = (room) => {
+    setCurrentRoom(room);
+  };
+
+  const [showSignin, setShowSignin] = useState(false);
+  const [showRoom, setShowRoom] = useState(false);
+  
   const [prevPath, setPrevPath] = useState('/'); 
   const navigate = useNavigate();
   const location = useLocation();
@@ -41,6 +53,14 @@ function App() {
     setShowSignup(true);
     setShowSignin(false);
     navigate("/signup");
+  };
+
+  const handleJoinRoomClick = () => {
+    setShowSignup(false);
+    setShowSignin(false);
+    setShowRoom(true);
+    console.log(setShowRoom);
+    navigate("/join/:roomId");
   };
 
   const handlesigninClick = () => {
@@ -61,55 +81,91 @@ function App() {
     setShowSignin(false);
   };
 
+
+  // const [isMuted, setIsMuted] = useState(false);
+  // const [isVideoOff, setIsVideoOff] = useState(false);
+
+  // const onToggleAudio = () => {
+  //   setIsMuted((prevState) => !prevState);
+  //   console.log(isMuted ? "Audio Unmuted" : "Audio Muted");
+  // };
+
+  // const onToggleVideo = () => {
+  //   setIsVideoOff((prevState) => !prevState);
+  //   console.log(isVideoOff ? "Video On" : "Video Off");
+  // };
+
   const { roomId } = useParams();
+  const isJoinRoomPath = location.pathname.startsWith('/join/');
 
   return (
-    <div className="App">
-      {(!showSignin && !showSignup) && (
-        <>
-          <Navbar onsigninclick={handlesigninClick} onsignupclick={handlesignupClick} />
+    <MediaControlProvider>
+      
+      <div className="App">
+        {(!showSignin && !showSignup) && (
+          <>
+            {/* Conditionally render Navbar or Topbar based on path */}
+            {!isJoinRoomPath && (
+              <Navbar onsigninclick={handlesigninClick} onsignupclick={handlesignupClick} />
+            )}
+      
+            {/* Conditional rendering of routes */}
+            {isJoinRoomPath ? (
+              <TopBar roomName={currentRoom?.roomName || "No room selected"} />
+            ) : null}
+            {/* <Navbar onsigninclick={handlesigninClick} onsignupclick={handlesignupClick} /> */}
+            <Routes>
+              <Route path="/" element={<Home onsignupclick={handlesignupClick} />} />
+              <Route path="/howitwork" element={<Howitwork onsignupclick={handlesignupClick} />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/createroom" element={<Createroom />} />
+              <Route path="/dashboard" element={<Dashboard onjoinroomclick={handleJoinRoomClick} onJoinRoom={handleJoinRoom} />} />
+              {/* <Route path="/dashboard/video-call/:roomId" element={<VideoCall />} /> */}
+              <Route path="*" element={<Navigate to="/" />} />
+              <Route path="/join/:roomId" element={
+                <div className="room SubRoom">
+                  <Sidebar participants={participants} />
+                  {/* <VideoPlayer /> */}
+                  <Chat messages={messages} sendMessage={sendMessage} />
+                  {/* <Controls onMute={() => {}} onEmoji={() => {}} onSettings={() => {}} /> */}
+                </div>
+                } 
+              />
+            </Routes>
+            {!isJoinRoomPath && (
+              <Footer />
+            )}
+      
+            {/* Conditional rendering of routes */}
+            {isJoinRoomPath ? (
+              null
+            ) : null}
+          </>
+        )}
+
+        
+        {showSignup && (
           <Routes>
-            <Route path="/" element={<Home onsignupclick={handlesignupClick} />} />
-            <Route path="/howitwork" element={<Howitwork onsignupclick={handlesignupClick} />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/createroom" element={<Createroom />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            {/* <Route path="/dashboard/video-call/:roomId" element={<VideoCall />} /> */}
-            <Route path="*" element={<Navigate to="/" />} />
-            <Route path="/join/:roomId" element={
-              <div className="room">
-                <Sidebar participants={participants} />
-                <VideoPlayer video={{ url: 'url-to-video' }} />
-                <Chat messages={messages} sendMessage={sendMessage} />
-                {/* <Controls onMute={() => {}} onEmoji={() => {}} onSettings={() => {}} /> */}
-              </div>} 
+            <Route
+              path="/signup"
+              element={<SignUp OnBackBtnClick={handleBackBtnClick} handleRegisterSuccess={handleRegisterSuccess} onsigninclick={handlesigninClick} />}
             />
           </Routes>
-          <Footer />
-        </>
-      )}
+        )}
 
-      {showSignup && (
-        <Routes>
-          <Route
-            path="/signup"
-            element={<SignUp OnBackBtnClick={handleBackBtnClick} handleRegisterSuccess={handleRegisterSuccess} onsigninclick={handlesigninClick} />}
-          />
-        </Routes>
-      )}
+        {showSignin && (
+          <Routes>
+            <Route
+              path="/login"
+              element={<SignIn OnBackBtnClick={handleBackBtnClick} handleRegisterSuccess={handleRegisterSuccess} onsignupclick={handlesignupClick} />}
+            />
+          </Routes>
+        )}
+        
 
-      {showSignin && (
-        <Routes>
-          <Route
-            path="/login"
-            element={<SignIn OnBackBtnClick={handleBackBtnClick} handleRegisterSuccess={handleRegisterSuccess} onsignupclick={handlesignupClick} />}
-          />
-        </Routes>
-      )}
-      
-
-    </div>
+      </div>
+    </MediaControlProvider>
   );
 }
 

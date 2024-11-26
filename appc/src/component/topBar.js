@@ -1,12 +1,20 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import '../home.css';
+import lightLogo from '../assets/white.png';
 
 
-const topBar = () => {
+
+const TopBar = ({ roomName }) => {
+  const [rooms, setRooms] = useState([]);
+
+  
   return (
     <div className="top-bar">
-      <div className="logo">CoWatch</div>
+      <div className='siteLogo'>
+        <img src={lightLogo} alt="COWATCH" />
+      </div>
       <div className="room-name">Display the room name</div>
+      <h3>Current Room: {roomName}</h3>
       <div className="top-buttons">
         <button className="invite-button">Invite More</button>
         <div className="settings-icons">
@@ -19,4 +27,4 @@ const topBar = () => {
   )
 }
 
-export default topBar
+export default TopBar

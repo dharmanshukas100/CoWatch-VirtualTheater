@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import muteIcon from '../assets/controls-icons/mute.svg'; 
+import { useMediaControl } from '../Context/MediaControlContext';
 import reactIcon from '../assets/controls-icons/react.svg';
 import videoIcon from '../assets/controls-icons/video-icon.svg';
 
 import { useParams } from 'react-router-dom';
 import '../index.css';
+import VideoCall from "./VideoCall";
 
 
-const JoinRoom = () => {
+const JoinRoom = ({isAudioEnabled, isVideoEnabled, toggleAudio, toggleVideo}) => {
     const { roomId } = useParams();
     const [videoLink, setVideoLink] = useState(null);
-
+    
     useEffect(() => {
         const fetchVideoLink = async () => {
             try {
@@ -30,7 +32,7 @@ const JoinRoom = () => {
     }, [roomId]);
 
     if (!videoLink) {
-        return <div>Loading video...</div>;
+        return <div className='loadingvideo'><h1>Loading video..</h1></div>;
     }
 
     // Helper function to extract YouTube video ID
@@ -42,32 +44,33 @@ const JoinRoom = () => {
     const videoID = extractYouTubeID(videoLink);
     const embedURL = videoID ? `https://www.youtube.com/embed/${videoID}` : null;
 
+
     return (
         <div>
             <div className="main-video">
                 {embedURL ? (
                     <iframe
+                        className='video-iframe'
                         src={embedURL}
                         frameBorder="0"
                         allow="autoplay; encrypted-media"
                         allowFullScreen
                         title="YouTube Video Player"
-                        style={{ width: '100%', height: '500px' }}
+                        // style={{ width: '100%', height: '500px' , border-radius: '12px' }}
                     ></iframe>
                 ) : (
                     <div>Invalid YouTube link</div>
                 )}
             </div>
             <div className="control-panel">
-                <div className="control-button">
-                    <img src={reactIcon} alt="React Icon" className="icon" />
-                </div>
-                <div className="control-button">
-                    <img src={muteIcon} alt="Mute Icon" className="icon" />
-                </div>
-                <div className="control-button">
-                    <img src={videoIcon} alt="Video Icon" className="icon" />
-                </div>
+                <button className="control-button" onClick={toggleAudio}>
+                <img src={muteIcon} alt="Mute Icon" className="icon" />
+                {/* {isAudioEnabled ? 'Mute' : 'Unmute'} */}
+                </button>
+                <button className="control-button" onClick={toggleVideo}>
+                <img src={videoIcon} alt="Video Icon" className="icon" />
+                {/* {isVideoEnabled ? 'Turn Video Off' : 'Turn Video On'} */}
+                </button>
             </div>
         </div>
     );
