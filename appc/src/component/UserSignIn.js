@@ -7,7 +7,7 @@ import GoogleIn from '../assets/Google.png';
 import FacebookIn from '../assets/facebookLogin.png';
 import CowatchLogo from '../assets/dark.png';
 import { ToastContainer } from 'react-toastify';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { handleError, handleSuccess } from '../utils';
 
 
@@ -15,6 +15,7 @@ import '../home.css';
 
 export default function UserSignIn({ OnBackBtnClick, onsignupclick, handleSignIn, handleRegisterSuccess }) {
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const location = useLocation();
   
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -44,48 +45,91 @@ export default function UserSignIn({ OnBackBtnClick, onsignupclick, handleSignIn
     setLoginInfo(copyLoginInfo);
   }
 
-  const handleLogin = async (e)=>{
+  // const handleLogin = async (e)=>{
+  //   e.preventDefault();
+  //   const { email, password } = loginInfo;
+  //   if(!email || !password){
+  //     return handleError('Enter complete Details')
+  //   }
+  //   try {
+  //     const url = "https://co-watch.vercel.app/auth/login";
+  //     const response = await fetch(url, {
+  //       method:"POST",
+  //       headers: {
+  //         'Content-Type': 'application/json'
+  //       },
+  //       body: JSON.stringify(loginInfo)
+  //     });
+  //     const result = await response.json();
+  //     const { success, message, error, fname, lname, jwtToken } = result;
+  //     if(success){
+  //       handleSuccess(message);
+  //       localStorage.setItem('token', jwtToken);
+  //       localStorage.setItem('loggedInUserfname', fname);
+  //       localStorage.setItem('loggedInUserlname', lname);
+        
+  //       setTimeout(()=>{
+  //         handleRegisterSuccess();
+  //         const from = location.state?.from || '/';
+  //         navigate(from, { replace: true });         
+  //       }, 1000);
+  //     } else if(error){
+  //         const details = error?.details[0].message;
+  //         handleError(details);
+  //     } else if (!success) {
+  //         handleError(message);
+  //     }
+  //     console.log(result);
+  //     console.log(fname);
+  //     console.log(lname);
+      
+  //   } catch (err) {
+  //       handleError(err);
+  //   }
+  // }
+  const handleLogin = async (e) => {
     e.preventDefault();
     const { email, password } = loginInfo;
-    if(!email || !password){
-      return handleError('Enter complete Details')
+  
+    if (!email || !password) {
+      return handleError('Enter complete details');
     }
+  
     try {
-      const url = "https://co-watch.vercel.app/auth/login";
+      const url = 'https://co-watch.vercel.app/auth/login';
       const response = await fetch(url, {
-        method:"POST",
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(loginInfo)
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(loginInfo),
       });
       const result = await response.json();
+  
       const { success, message, error, fname, lname, jwtToken } = result;
-      if(success){
+  
+      if (success) {
         handleSuccess(message);
         localStorage.setItem('token', jwtToken);
         localStorage.setItem('loggedInUserfname', fname);
         localStorage.setItem('loggedInUserlname', lname);
-        
-        setTimeout(()=>{
+  
+        setTimeout(() => {
           handleRegisterSuccess();
-          navigate('/');          
+          // Safely redirect to the saved route or a default dashboard
+          const from = location.state?.from || '/';
+          console.log('Redirecting to:', from); // Debug log
+          navigate(from, { replace: true });
         }, 1000);
-      } else if(error){
-          const details = error?.details[0].message;
-          handleError(details);
-      } else if (!success) {
-          handleError(message);
+      } else if (error) {
+        const details = error?.details?.[0]?.message || 'Something went wrong';
+        handleError(details);
+      } else {
+        handleError(message);
       }
-      console.log(result);
-      console.log(fname);
-      console.log(lname);
-      
     } catch (err) {
-        handleError(err);
+      handleError('Login failed: ' + err.message);
     }
-  }
-
+  };
+  
   
 
   

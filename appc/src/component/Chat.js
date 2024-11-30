@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-// import io from 'socket.io-client';
 import socket from "../socket"; 
 import { useParams } from 'react-router-dom';
 import '../home.css'
@@ -7,16 +6,20 @@ import '../home.css'
 
 const Chat = () => {
   
-  // const socket = io("http://localhost:5000");
   const { roomId } = useParams();
   const fname = localStorage.getItem('loggedInUserfname');
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
   const [tab, setTab] = useState('Chat'); 
   const handleTabClick = (tabName) => setTab(tabName);
-  // const [rooms, setRooms] = useState([]);
   const [participants, setParticipants] = useState([]);
 
+
+  useEffect(() => {
+    const savedMessages = JSON.parse(localStorage.getItem("chatMessages")) || [];
+    console.log("Loaded messages from localStorage:", savedMessages);
+    setMessages(savedMessages);
+  }, []);
 
 
   useEffect(() => {
@@ -50,27 +53,29 @@ const Chat = () => {
       setParticipants(updatedParticipants); // Ensure you define `participants` state
     });
 
-
-    // fetch('https://co-watch.vercel.app/auth/createroom')
-    //   .then((res) => res.json())
-    //   .then((rooms) => setRooms(rooms))
-    //   .catch((error) => console.error('Error fetching rooms:', error));
-
     return () => {
       socket.off("receiveMessage"); // Cleanup event listener
       socket.off("updateParticipants");
     };
-  }, [roomId]);
+  }, [roomId, fname]);
 
   const handleSendMessage = () => {
     if (message.trim()) {
-      const payload = { roomId, message, fname };
-      socket.emit("sendMessage", payload); // Emit message
-      setMessages((prev) => [
-        ...prev,
-        { senderId: "You", message, fname, time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) },
-      ]);
-      setMessage('');
+      const newMessage = {
+        senderId: "You",
+        fname,
+        message,
+        time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+      };
+
+      socket.emit("sendMessage", { roomId, message, fname });
+      setMessages((prevMessages) => {
+        const updatedMessages = [...prevMessages, newMessage];
+        localStorage.setItem("chatMessages", JSON.stringify(updatedMessages)); // Save to localStorage
+        return updatedMessages;
+      });
+
+      setMessage("");
     }
   };
 

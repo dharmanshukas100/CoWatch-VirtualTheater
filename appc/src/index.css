@@ -13,14 +13,6 @@ code {
 }
 
 
-
-.App{
-  padding: 0px 15px;
-  background-color: #333;
-  padding-bottom: 15px;
-  /* width: 100vw; */
-  /* height: 100vh; */
-}
 .room{
   display: flex;
   /* justify-content: space-between; */

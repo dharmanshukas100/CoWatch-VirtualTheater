@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Route, Routes, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import { MediaControlProvider } from './Context/MediaControlContext';
 import Navbar from './component/navbar';
@@ -13,13 +13,15 @@ import Contact from './component/Contact';
 import Createroom from './component/Createroom';
 import Dashboard from './component/Dashboard';
 // import VideoCall from './component/VideoCall';
-
+import ProtectedRoute from './component/ProtectedRoute';
 import Sidebar from './component/Sidebar';
 import VideoPlayer from './component/VideoPlayer';
 import Chat from './component/Chat';
 import TopBar from './component/Topbar'
-
+import { ToastContainer } from 'react-toastify';
 import { useParams } from "react-router-dom";
+import 'react-toastify/dist/ReactToastify.css';  // Add this line
+
 
 
 function App() {
@@ -39,7 +41,15 @@ function App() {
   // Function to update current room
   const handleJoinRoom = (room) => {
     setCurrentRoom(room);
+    localStorage.setItem("currentRoomName", room.roomName);
   };
+
+  useEffect(() => {
+    const savedRoomName = localStorage.getItem("currentRoomName");
+    if (savedRoomName) {
+      setCurrentRoom({ roomName: savedRoomName });
+    }
+  }, []);
 
   const [showSignin, setShowSignin] = useState(false);
   const [showRoom, setShowRoom] = useState(false);
@@ -56,11 +66,18 @@ function App() {
   };
 
   const handleJoinRoomClick = () => {
-    setShowSignup(false);
-    setShowSignin(false);
-    setShowRoom(true);
-    console.log(setShowRoom);
-    navigate("/join/:roomId");
+    const token = localStorage.getItem('token');
+    if (token){
+      setShowSignup(false);
+      setShowSignin(false);
+      setShowRoom(true);
+      console.log(setShowRoom);
+      navigate("/join/:roomId");
+    }
+    else{
+      setShowSignin(true);
+      navigate("/login");
+    }
   };
 
   const handlesigninClick = () => {
@@ -79,7 +96,12 @@ function App() {
   const handleRegisterSuccess = () => {
     setShowSignup(false);
     setShowSignin(false);
-  };
+
+    // Retrieve the "from" path from state, or default to "/dashboard"
+    // const from = location.state?.from || '/dashboard';
+    // localStorage.setItem('token', 'YOUR_AUTH_TOKEN'); // Replace with actual token from API response
+    // navigate(from, { replace: true });
+    };
 
 
   // const [isMuted, setIsMuted] = useState(false);
@@ -97,11 +119,12 @@ function App() {
 
   const { roomId } = useParams();
   const isJoinRoomPath = location.pathname.startsWith('/join/');
+  
 
   return (
     <MediaControlProvider>
       
-      <div className="App">
+      <div className={`App ${isJoinRoomPath ? "join-room-bar" : ""}`}>
         {(!showSignin && !showSignup) && (
           <>
             {/* Conditionally render Navbar or Topbar based on path */}
@@ -111,9 +134,10 @@ function App() {
       
             {/* Conditional rendering of routes */}
             {isJoinRoomPath ? (
-              <TopBar roomName={currentRoom?.roomName || "No room selected"} />
+              <TopBar currentRoom={currentRoom} />
             ) : null}
             {/* <Navbar onsigninclick={handlesigninClick} onsignupclick={handlesignupClick} /> */}
+            <ToastContainer /> {/* Toast Container for React Toastify */}
             <Routes>
               <Route path="/" element={<Home onsignupclick={handlesignupClick} />} />
               <Route path="/howitwork" element={<Howitwork onsignupclick={handlesignupClick} />} />
@@ -124,12 +148,15 @@ function App() {
               {/* <Route path="/dashboard/video-call/:roomId" element={<VideoCall />} /> */}
               <Route path="*" element={<Navigate to="/" />} />
               <Route path="/join/:roomId" element={
-                <div className="room SubRoom">
-                  <Sidebar participants={participants} />
-                  {/* <VideoPlayer /> */}
-                  <Chat messages={messages} sendMessage={sendMessage} />
-                  {/* <Controls onMute={() => {}} onEmoji={() => {}} onSettings={() => {}} /> */}
-                </div>
+                <ProtectedRoute>
+                  <div className="room SubRoom">
+                    <Sidebar participants={participants} />
+                    {/* <VideoPlayer /> */}
+                    <Chat messages={messages} sendMessage={sendMessage} />
+                    {/* <Controls onMute={() => {}} onEmoji={() => {}} onSettings={() => {}} /> */}
+                  </div>
+                </ProtectedRoute>
+                
                 } 
               />
             </Routes>

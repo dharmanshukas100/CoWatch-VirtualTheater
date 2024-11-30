@@ -12,6 +12,7 @@ export default function Dashboard({onJoinRoom}) {
       .then((rooms) => setRooms(rooms))
       .catch((error) => console.error('Error fetching rooms:', error));
   }, []);
+  
 
   const joinRoom = (roomId) => {
     const room = rooms.find((room) => room.roomId === roomId);
