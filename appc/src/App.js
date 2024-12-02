@@ -17,7 +17,7 @@ import ProtectedRoute from './component/ProtectedRoute';
 import Sidebar from './component/Sidebar';
 import VideoPlayer from './component/VideoPlayer';
 import Chat from './component/Chat';
-import TopBar from './component/Topbar'
+import TopBar from './component/TopBar';
 import { ToastContainer } from 'react-toastify';
 import { useParams } from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.css';  // Add this line
