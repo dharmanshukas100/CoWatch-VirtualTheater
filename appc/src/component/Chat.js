@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import socket from "../socket"; 
 import { useParams } from 'react-router-dom';
+import Sendbtn from '../assets/send btn.png'
 import '../home.css'
 
 
@@ -111,7 +112,7 @@ const Chat = () => {
             />
             <button
             onClick={handleSendMessage}
-            >📩</button>
+            ><img src={Sendbtn} alt="" /></button>
           </div>
         </div>
       )}
@@ -119,7 +120,7 @@ const Chat = () => {
         <div>
           {participants.length > 0 ? (
             participants.map((participant, index) => (
-              <div key={index} style={{ marginBottom: '10px' }}>
+              <div key={index} className='participant-list'>
                 {participant.fname || "Anonymous"} {/* Fallback for missing fname */}
               </div>
             ))

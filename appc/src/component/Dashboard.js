@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
+import { useNavigate } from "react-router-dom"; 
+import Addroombtn from '../assets/Addroombtn.png';
 import socket from "../socket"; 
+import '../home.css';
+import '../index.css';
 
 export default function Dashboard({onJoinRoom}) {
   const [rooms, setRooms] = useState([]);
@@ -34,16 +37,20 @@ export default function Dashboard({onJoinRoom}) {
   };
 
   return (
-    <div>
-      <h2>Available Rooms</h2>
-      <div>
+    <div className="Padding">
+      <div className="Room-add Inter">
+        <img src={Addroombtn} alt="" />
+        <p>Create Room</p>
+      </div>
+      <h2 className="Poppins">Available Rooms</h2>
+      <div className="room-list">
         {rooms.length > 0 ? (
           rooms.map((room) => (
-            <div key={room.roomId} style={{ border: '1px solid #ddd', padding: '10px', margin: '10px 0' }}>
-              <h3>{room.roomName}</h3>
+            <div className="sub-room Inter" key={room.roomId}>
+              <h3 className="room-head">{room.roomName}</h3>
               <p>Platform: {room.platform}</p>
               <p>Members: {room.members.join(', ')}</p>
-              <button onClick={() => joinRoom(room.roomId)}>Join Room</button>
+              <button className="joinroombtn" onClick={() => joinRoom(room.roomId)}>Join Room</button>
             </div>
           ))
         ) : (

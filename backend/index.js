@@ -111,6 +111,14 @@ io.on('connection', (socket) => {
     io.to(roomId).emit("startCall"); // Notify all participants in the room
   });
 
+  io.on('connection', (socket) => {
+    // Listen for user-left
+    socket.on('user-left', ({ roomId, userId }) => {
+      // Notify other participants in the room
+      socket.to(roomId).emit('user-left', { userId });
+    });
+  });
+
   // Handle user disconnect
   socket.on("disconnect", () => {
     for (const roomId in participants) {

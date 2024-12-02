@@ -1086,7 +1086,7 @@ font-size: 18px;
     display: flex;
     flex-direction: column;
     align-items: normal;
-    height: 550px;
+    height: 515px;
 }
 
 
@@ -1130,3 +1130,47 @@ font-size: 18px;
     background: #0056b3;
   }
   
+
+
+
+/* Leavesroom*********************/
+.leave-room-button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+.leave-room-button:hover {
+background-color: darkred;
+}
+
+/* inviteroom*********************/
+.invite-button {
+    background-color: #7C3AED;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+.invite-button:hover {
+background-color: #6318E3;
+}
+
+
+.room-name{
+    font-size: 25px;
+    font-weight: 700;
+    color: white;
+}
+
+.room-list{
+    display: grid;
+    grid-template-columns: 325px 325px 325px 325px;
+    grid-auto-rows: 260px;
+    gap: 18px;
+}
