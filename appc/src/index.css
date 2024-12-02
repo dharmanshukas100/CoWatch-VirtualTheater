@@ -367,3 +367,23 @@ code {
   width: 103px;
   align-self: flex-end;
 }
+.joinroombtn:hover{
+  background-color: #7C3AED;
+  color: #FFFFFF;
+}
+
+.Room-add{
+  display: inline-block;
+  text-align: center;
+  padding: 19px 41px;
+  margin: 10px 0px;
+  border-radius: 18px;
+  font-size: 19px;
+  margin-bottom: 58px;
+  box-shadow: 4px 3px 16px 0 #0000003d;
+
+}
+.Room-add:hover{
+  cursor: pointer;
+  background-color: #f0f2ff;
+}

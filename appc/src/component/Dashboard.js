@@ -36,10 +36,14 @@ export default function Dashboard({onJoinRoom}) {
     navigate(`/join/${roomId}`);
   };
 
+  const addroombtn = () => {
+    navigate(`/createroom`);
+  };
+
   return (
     <div className="Padding">
       <div className="Room-add Inter">
-        <img src={Addroombtn} alt="" />
+        <img src={Addroombtn} onClick={() => addroombtn()} alt="" />
         <p>Create Room</p>
       </div>
       <h2 className="Poppins">Available Rooms</h2>
