@@ -12,7 +12,8 @@ const io = new Server(server, {
   cors: {
     origin: [
       "http://localhost:3000", // Local frontend during development
-      "https://co-watch-main.vercel.app" // Deployed frontend
+      "https://co-watch-main.vercel.app", // Deployed frontend
+      "https://l7x6b60s-3000.inc1.devtunnels.ms"
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
@@ -29,7 +30,8 @@ app.use(bodyParser.json());
 // Dynamic CORS configuration
 const allowedOrigins = [
   "http://localhost:3000", // Local frontend during development
-  "https://co-watch-main.vercel.app" // Deployed frontend
+  "https://co-watch-main.vercel.app", // Deployed frontend
+  "https://l7x6b60s-3000.inc1.devtunnels.ms"
 ];
 
 app.use(cors({

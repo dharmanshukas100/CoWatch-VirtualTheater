@@ -23,19 +23,47 @@ const TopBar = ({ currentRoom }) => {
 
   const handleLeaveRoom = () => {
     // Clear stored chats for this user
+
+    // Example of how to get media stream when the user joins the room
+  navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+  .then(stream => {
+    // Store the stream globally or in a ref
+    window.userStream = stream;
+
+    // Assuming you have a video element to display the video
+    const videoElement = document.getElementById('user-video');
+    videoElement.srcObject = stream;
+
+    // If you're using WebRTC, attach this stream to your peer connection
+    if (window.peerConnection) {
+      stream.getTracks().forEach(track => window.peerConnection.addTrack(track, stream));
+    }
+  })
+  .catch(err => console.error('Error accessing media devices: ', err));
+
+
+
     localStorage.removeItem(`chats-${roomId}`);
 
-    // Perform any additional cleanup, like disconnecting video/audio
-    // (Assuming functions to disconnect video/audio exist, e.g., `disconnectCall`)
+    // 1. Stop the user's video and audio tracks
+    if (window.userStream) {
+      const tracks = window.userStream.getTracks();
+      tracks.forEach(track => track.stop());  // Stop each track (audio and video)
+    }
+
+    // 2. Close the WebRTC peer connection
     if (window.peerConnection) {
       window.peerConnection.close(); // Close the WebRTC connection
+      window.peerConnection = null; // Clear reference to peer connection
     }
+
+    // 3. Disconnect the socket connection
     if (window.socket) {
       window.socket.emit('user-left', { roomId, userId: window.currentUserId });
       window.socket.disconnect(); // Disconnect the socket
     }
 
-    // Redirect the user back to the dashboard
+    // 4. Navigate the user back to the dashboard
     navigate('/dashboard');
   };
 
@@ -63,3 +91,4 @@ const TopBar = ({ currentRoom }) => {
 };
 
 export default TopBar;
+

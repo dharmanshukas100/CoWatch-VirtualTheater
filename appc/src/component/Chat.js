@@ -1,34 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import socket from "../socket"; 
-import { useParams } from 'react-router-dom';
-import Sendbtn from '../assets/send btn.png'
-import '../home.css'
-
+import { useParams, useNavigate } from 'react-router-dom';
+import Sendbtn from '../assets/send btn.png';
+import '../home.css';
 
 const Chat = () => {
-  
   const { roomId } = useParams();
   const fname = localStorage.getItem('loggedInUserfname');
+  const navigate = useNavigate(); // Add history for navigation
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
   const [tab, setTab] = useState('Chat'); 
-  const handleTabClick = (tabName) => setTab(tabName);
   const [participants, setParticipants] = useState([]);
+  
+  
+  const handleTabClick = (tabName) => setTab(tabName);
 
-
+  // Load messages from localStorage when the component mounts
   useEffect(() => {
     const savedMessages = JSON.parse(localStorage.getItem("chatMessages")) || [];
     console.log("Loaded messages from localStorage:", savedMessages);
     setMessages(savedMessages);
   }, []);
 
-
   useEffect(() => {
-
     socket.on("connect", () => {
       console.log("connected");
     });
-    
+
     socket.on("connect_error", (err) => {
       console.error("Socket connection error:", err);
     });
@@ -36,13 +35,11 @@ const Chat = () => {
     // Join room
     if (roomId && fname) {
       console.log(`Joining room: ${roomId}`);
-      socket.emit("joinRoom", { roomId, fname }); // Include fname here
+      socket.emit("joinRoom", { roomId, fname });
     } else {
       console.error("Room ID or user name is missing!");
     }
-    
-  
-  
+
     // Listen for new messages
     socket.on("receiveMessage", (data) => {
       console.log("Received message:", data);
@@ -51,12 +48,16 @@ const Chat = () => {
 
     socket.on("updateParticipants", (updatedParticipants) => {
       console.log("Updated participants:", updatedParticipants);
-      setParticipants(updatedParticipants); // Ensure you define `participants` state
+      setParticipants(updatedParticipants);
     });
 
+    // Cleanup on component unmount or room leave
     return () => {
-      socket.off("receiveMessage"); // Cleanup event listener
+      socket.off("receiveMessage");
       socket.off("updateParticipants");
+      socket.emit("leaveRoom", { roomId, fname }); // Trigger the leaveRoom event
+      localStorage.removeItem("chatMessages"); // Remove messages from localStorage
+      setMessages([]); // Clear messages from state
     };
   }, [roomId, fname]);
 
@@ -80,7 +81,14 @@ const Chat = () => {
     }
   };
 
-  
+  // Handle leaving the room
+  const handleLeaveRoom = () => {
+    socket.emit("leaveRoom", { roomId, fname }); // Notify server
+    navigate("/dashboard"); // Redirect to dashboard (or another page)
+    localStorage.removeItem("chatMessages"); // Clear chat messages from localStorage
+    setMessages([]); // Clear messages from state
+  };
+
   return (
     <div className="chat-container">
       <div className="chat-tabs">
@@ -110,9 +118,9 @@ const Chat = () => {
               onChange={(e) => setMessage(e.target.value)}
               onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
             />
-            <button
-            onClick={handleSendMessage}
-            ><img src={Sendbtn} alt="" /></button>
+            <button onClick={handleSendMessage}>
+              <img src={Sendbtn} alt="Send" />
+            </button>
           </div>
         </div>
       )}
@@ -121,7 +129,7 @@ const Chat = () => {
           {participants.length > 0 ? (
             participants.map((participant, index) => (
               <div key={index} className='participant-list'>
-                {participant.fname || "Anonymous"} {/* Fallback for missing fname */}
+                {participant.fname || "Anonymous"}
               </div>
             ))
           ) : (
@@ -129,11 +137,8 @@ const Chat = () => {
           )}
         </div>
       )}
+      
     </div>
-
-
-
-    
   );
 };
 
