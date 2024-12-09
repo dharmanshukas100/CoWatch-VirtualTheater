@@ -121,6 +121,13 @@ io.on('connection', (socket) => {
     });
   });
 
+  socket.on("sendReaction", (reaction) => {
+    console.log("Reaction received:", reaction);
+    // Broadcast the reaction to all other users
+    socket.broadcast.emit("receiveReaction", reaction);
+  });
+
+
   // Handle user disconnect
   socket.on("disconnect", () => {
     for (const roomId in participants) {
