@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import muteIcon from '../assets/controls-icons/mute.svg'; 
 import { useMediaControl } from '../Context/MediaControlContext';
+import muteIcon from '../assets/controls-icons/mute.svg'; 
+import Reactemoji from '../assets/react.jpg';
+import Micplay from '../assets/mic on.png';
+import videooff from '../assets/videooff.png';
 import reactIcon from '../assets/controls-icons/react.svg';
 import videoIcon from '../assets/controls-icons/video-icon.svg';
 
@@ -64,12 +67,18 @@ const JoinRoom = ({isAudioEnabled, isVideoEnabled, toggleAudio, toggleVideo}) =>
             </div>
             <div className="control-panel">
                 <button className="control-button" onClick={toggleAudio}>
-                <img src={muteIcon} alt="Mute Icon" className="icon" />
-                {/* {isAudioEnabled ? 'Mute' : 'Unmute'} */}
+                    <img 
+                        src={isAudioEnabled ? Micplay : muteIcon} 
+                        alt="Audio Control Icon" 
+                        className="icon" 
+                    />
                 </button>
                 <button className="control-button" onClick={toggleVideo}>
-                <img src={videoIcon} alt="Video Icon" className="icon" />
-                {/* {isVideoEnabled ? 'Turn Video Off' : 'Turn Video On'} */}
+                    <img 
+                        src={isVideoEnabled ? videoIcon : videooff} 
+                        alt="Video Control Icon" 
+                        className="icon" 
+                    />
                 </button>
             </div>
         </div>
