@@ -1,7 +1,32 @@
+
+
 .Padding{
-    padding: 58px 58px;
+    padding: 65px 65px;
     padding-bottom: 2px;
 }
+.invert{
+    filter: invert();
+}
+
+/* Fonts-------------------------- */
+.Inter{
+    font-family: "Inter", serif;
+    font-style: normal;
+}
+.Nunito{
+    font-family: "Nunito", sans-serif;
+    font-style: normal;
+}
+.Poppins{
+    font-family: "Poppins", serif;
+    font-style: normal;
+
+}
+input:focus {
+    outline: none;
+    border: none;
+}
+
 
 #header-nav {
     display: flex;
@@ -9,22 +34,46 @@
     align-items: center;
     background-color: #333333;
     padding: 7px 48px;
+    position: relative;
+    z-index: 0;
     height: 60px;
+    box-shadow: 0px 33px 23px 1px #0000003d;
+}
+.siteLogo{
+    display: inline-block;
 }
 .siteLogo img{
-    width: 135px;
+    width: 150px;
     height: 25px;
+}
+.siteLogo img:hover{
+    cursor: pointer;
 }
 .pagetabsUl{
     display: flex;
     color: white;
-    gap: 23px;
+    gap: 40px;
     list-style: none;
     align-items: center;
     padding-left: 0;
 }
 .pagetabsUl li:hover{
     border-bottom: 2px solid #78528B;
+    cursor: pointer;
+}
+.pagetabsUl a{
+    list-style: none;
+    color: white;
+    text-decoration: none;
+
+}
+.create-roombtn{
+    list-style: none;
+    color: white;
+    text-decoration: none;
+    background: none;
+    border: none;
+
 }
 
 .signInOut-btn{
@@ -32,12 +81,21 @@
     color: white;
     border: none;
     border-radius: 2px;
-    padding: 10px 18px;
-    width: 90px;
+    padding: 10px 12px;
+    width: 100px;
+    font-weight: bold;
+    font-size: 16px;
 }
-.signInOut-btn:hover{
+.signIn-btn:hover{
     border: 2px solid #400A9C;
     border-radius: 10px;
+    cursor: pointer;
+}
+.signOut-btn:hover{
+    border: 2px solid #400A9C;
+    background-color: #7C3AED;
+    border-radius: 10px;
+    cursor: pointer;
 }
 
 
@@ -52,14 +110,19 @@
     border-radius: 0px 0px 350px;
     box-shadow: 0px 20px 30px #9AA9FF;
     padding-bottom: 25px;
+    overflow: hidden;
 }
 .home1{
-    width: 700px;
+    /* width: 700px; */
+    font-weight: 100;
 
 }
 .home1-head{
+    width: 710px;
     font-size: 60px;
     margin-bottom: 0;
+    color: #121829;
+    font-weight: bold;
 
 }
 .home1-span{
@@ -70,20 +133,24 @@
     border: 3px solid #400A9C;
     border-radius: 10px;
     color: white;
-    width: 130px;
+    width: 154px;
     height: 42px;
+    font-weight: bold;
 }
 .home1-icon{
 
 }
 .home1-icon img{
-    width: 673px;
-    height: 408px;
+    width: 633px;
+    height: 432px;
+    overflow: hidden;
 }
 .home1-h5{
     width: 618px;
     font-size: 18px;
     margin-top: 3px;
+    color: #706565;
+    font-weight: 300;
 }
 
 /* home2----------------- */
@@ -115,35 +182,49 @@
     font-size: 16px;
     padding: 10px 18px;
     color: #6318E3;
+    font-weight: bold;
 
 }
 .home2-feature{
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 11px 46px;
 
 }
 .home2-card{
     background-color: #DEE3FF;
-    width: 350px;
+    width: 380px;
     border-radius: 10px;
     text-align: center;
+    font-weight: 400;
+    transition: scale 0.5s;
+}
+.home2-card:hover{
+    scale: 1.05;
+    box-shadow: 0px 0px 15px 0px #aba5ff;
 }
 .home2-card img{
     margin: auto;
 }
+
+
+
+
+/* home-3  ***************************** */
 .home3-Subsec{
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 30px;
 
 
 }
 .home3-options{
     background-color: #DEE3FF;
     border-radius: 500px;
-    width: 350px;
-    height: 350px;
+    width: 365px;
+    height: 365px;
     align-content: center;
     text-align: center;
 }
@@ -152,6 +233,7 @@
 }
 .home3-options h1{
     font-size: 25px;
+    font-weight: 600 ;
 }
 .reviewCardSlide{
     display: flex;
@@ -175,6 +257,7 @@
 .home4-H2{
     font-size: 25px;
     text-align: center;
+    font-weight: bolder;
 }
 .UserImg{
     display: block;
@@ -194,5 +277,901 @@
     font-size: 18px;
     margin-top: 47px;
 }
+.platforms{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 170px;
+}
+.platforms img{
+    width: 150px;
+}
+.platforms .hotstarIcon{
+    height: 80px;
 
+}
+.platforms .primeIcon{
+    height: 90px;
+}
+
+
+
+/* --Footer************************ */
+
+.MainFooter{
+    background-color: black;
+    color: white;
+    text-align: center;
+    margin-top: 52px;
+
+}
+.container-foot{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.LogoFoot{    
+    width: 200px;
+}
+.CopyrightDiv{
+
+}
+.SocialIconall img{
+    padding: 15px;
+}
+.FootMultiOption{
+    width: 200px;
+    text-align: right;
+}
+
+
+
+
+
+
+/* ******* Register form ************* */
+.container::before{
+    position: relative;
+    z-index: -1;
+}
+.container{
+    display: flex;
+    height: 100vh;
+    /* position: relative; */
+
+}
+  
+.left-section {
+flex: 1;
+overflow: hidden;
+}
+.leftSectionTop{
+    position: absolute;
+    display: flex;
+    align-items: center;
+    margin: 5px;
+    gap: 12px;
+}
+
+.movie-posters {
+    width: 1192px;
+    object-fit: cover;
+}
+
+.right-section {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #E9EBFA;
+}
+
+.sign-up-form {
+    /* width: 460px;
+    border-radius: 10px; */
+}
+
+.sign-up-form h2 {
+    margin: auto;
+    text-align: center;
+    font-size: 43px;
+    margin-bottom: 10px;
+}
+
+.sign-up-form .form-quote{
+    width: 403px;
+    font-size: 14px;
+    margin: auto;
+    margin-bottom: 16px;
+}
+
+.input-container {
+display: flex;
+gap: 10px;
+}
+
+.input-container input{
+    width: 200px;
+    padding: 15px;
+    margin-bottom: 15px;
+    border: none;
+    background-color: #D9D9D9;
+    border-radius: 22px;
+    font-size: 14px;
+}
+.input-container input:focus{
+    border: none;
+    outline: none;
+}
+.sign-up-form input[type="email"]{
+    width: 441px;
+    padding: 15px;
+    margin-bottom: 15px;
+    border: none;
+    background-color: #D9D9D9;
+    border-radius: 22px;
+    font-size: 14px;
+}
+
+.sign-up-form input[type="email"]:focus{
+    border: none;
+   
+}
+
+
+.Passwordinput input{
+    border: none;
+    background: none;
+    width: 400px;
+    font-size: 14px;
+}
+
+.Passwordinput{
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
+    padding: 13px;
+    margin-bottom: 15px;
+    border-radius: 22px;
+    background-color: #D9D9D9;
+}
+
+.create-account-button {
+    width: 100%;
+    background-color: #7C3AED;
+    color: #F0F0F0;
+    padding: 13px;
+    border: none;
+    border-radius: 22px;
+    cursor: pointer;
+    margin-bottom: 15px;
+    font-size: 17px;
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    text-align: center;
+    font-size: 14px;
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+.social-signup {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
+}
+
+.social-button {
+    border: none;
+    cursor: pointer;
+    background: none;
+}
+
+.terms {
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 3px;
+}
+.terms a{
+    text-decoration: none;
+    color: #7C3AED;
+    font-weight: bold;
+
+}
+
+.login-link {
+    font-size: 16px;
+    text-align: center;
+    margin-top: 0;
+}
+.login-link a{
+    color: #7C3AED;
+    text-decoration: none;
+    font-weight: bold;
+
+}
+/* 
+.sign-in-button {
+padding: 15px 30px;
+background-color: #6c4ed8;
+color: #fff;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+font-size: 18px;
+} */
+.LineHR{
+    width: 174px;
+    display: inline-block;
+    background: #000000;
+}
+.BackBtn{
+    background: none;
+    border: none;
+}
+.sign-in-form{
+    text-align: center;
+    font-size: 43px;
+    margin-bottom: 18px;
+}
+.Remember-Forgot{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 17px;
+
+}
+.RememberMe{
+    text-decoration: none;
+    color: #000000;
+    font-weight: bold;
+    font-size: 18px;
+
+}
+.Forgot{
+    text-decoration: none;
+    color: #6B747E;
+    font-weight: 400;
+    font-size: 16px;
+
+}
+
+
+/* ------How It Works***************** */
+.HowitWork{
+    padding-top: 45px;
+}
+.HIW-Page-Heading{
+    font-size: 36px;
+    font-weight: bold;
+    text-align: center;
+    color: #7C3AED;
+    margin: 0;
+
+}
+.Quote-section-1{
+    
+}
+.Quote-HeadA{
+    font-size: 24px;
+    color: #400A9C;
+    font-style: italic;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+.Quote-ParaA{
+    color: #6B7280;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 3px;
+    text-align: justify;
+}
+.Step1{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 70px;
+    gap: 100px;
+}
+.step-detail-section{
+
+}
+.step1-text{
+    display: inline-block;
+}
+.Quote-HeadB{
+    font-size: 24px;
+    color: #400A9C;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+.Step-Numbering{
+    background-color: #7C3AED;
+    border-radius: 10px;
+    font-size: 24px;
+    font-weight: 900;
+    text-align: center;
+    display: inline-block;
+    padding: 9px 19px;
+    color: #FFFFFF;
+}
+.Step-Numbering p{
+    display: inline;
+}
+.Quote-Bottom{
+    font-size: 24px;
+    font-weight: 700;
+    color: #000000;
+    text-align: center;
+}
+.Createroombtn-div{
+
+}
+.Createroombtn-div a{
+    text-decoration: none;
+}
+.Createroombtn{
+    display: block;
+    background-color: #7C3AED;
+    border-radius: 10px;
+    border: none;
+    font-size: 16px;
+    font-weight: 700;
+    color: #ffffff;
+    text-align: center;
+    margin: auto;
+    padding: 10px;
+}
+
+/* --------about************** */
+.head1-About{
+    font-size: 29px;
+    color: #400A9C;
+    font-weight: bold;
+    margin-bottom: 19px;
+    margin-top: 50px;
+    text-align: center;
+}
+.cards-aboutpage:hover{
+    background-color: #DEE3FF;
+}
+
+
+/* -------contact************** */
+.Head1-contact{
+    font-size: 36px;
+    font-weight: bold;
+    text-align: center;
+    color: #7C3AED;
+    margin: 0;
+}
+.Subhead1-contact{
+    font-size: 24px;
+    color: #400A9C;
+    font-weight: bold;
+    margin-bottom: 0;
+    text-align: center;
+    font-style: italic;
+}
+.contactform-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    gap: 19px;
+    width: 750px;
+    margin-top: 30px;
+}
+.contactform-container input{
+    width: 710px;
+    background-color: #D9D9D9;
+    border: none;
+    color: #6B7280;
+    font-size: 20px;
+    font-weight: 700;
+    border-radius: 10px;
+    padding: 20px;
+}
+.contactform-container textarea{
+    width: 710px;
+    background-color: #D9D9D9;
+    border: none;
+    color: #6B7280;
+    font-size: 20px;
+    font-weight: 700;
+    border-radius: 10px;
+    height: 336px;
+    padding: 20px;
+}
+.contactform-container button{
+    background-color: #7C3AED;
+    border: none;
+    border-radius: 10px;
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 10px;
+    align-self: flex-end;
+}
+
+.Another-contact{
+    display: block;
+    margin: auto;
+    width: 750px;
+    font-size: 16px;
+    font-weight: 700;
+
+}
+.Another-contact p{
+    font-size: 16px;
+    font-weight: 700;
+    color: #000000;
+    
+
+}
+.Another-contact span{
+    font-size: 16px;
+    font-weight: 700;
+    color: #7C3AED;
+
+}
+
+/* ---------CreateRoom Page************ */
+.headinput{
+
+}
+.headpara{
+    color: #400A9C;
+    font-size: 16px;
+    font-weight: 600;
+}
+.headinput{
+    width: 545px;
+    padding: 13px;
+    background-color: #D9D9D9;
+    border: none;
+    border-radius: 10px;
+}
+.Chooseplateform img{
+    width: 150px;
+    background-color: #d9d9d954;
+    padding: 40px 32px;
+    border-radius: 10px;
+    height: 50px;
+    margin-bottom: 15px;
+}
+.Chooseplateform img:hover{
+    /* background-color: #7c3aed3b; */
+    border: 4px solid #400a9cae;
+}
+.subhead-CR{
+    font-size: 16px;
+    font-weight: 500;
+    padding-left: 15px;
+    color: #000000;
+}
+.Room-set-Label{
+    color: #000000;
+    font-size: 16px;
+    padding-left: 30px;
+    width: 290px;
+}
+
+/* *******sliderCheck ///////*/
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 31px;
+    height: 31px;
+  }
+  
+  /* Hide default HTML checkbox */
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  /* The slider */
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 23px;
+    width: 23px;
+    left: 6px;
+    bottom: 4px;
+    background-color: #400A9C;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: #D9D9D9;
+    border: 1px solid #400A9C;
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px #D9D9D9;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+
+
+/* continue --- createRoomPage */
+
+.create-btn{
+    padding: 10px 18px;
+    background-color: #400A9C;
+    border: 2px solid #6318E3;
+    color: #FFFFFF;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    margin: 25px;
+}
+.cancel-btn{
+    padding: 10px 18px;
+    /* background-color: #400A9C; */
+    border: 2px solid #6318E3;
+    color: #6318E3;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 700;
+}
+.Div-Room-create{
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    gap: 33px;
+    border: 2px solid #400A9C;
+    padding: 36px;
+    border-radius: 10px;
+}
+.Setting-Choice{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 8px;
+}
+.btn-cancel-create-room{
+    text-align: end;
+}
+
+
+.platforms img {
+    cursor: pointer;
+    transition: border-color 0.3s ease background-color 0.1 ease;
+}
+  
+  /* Active state styling for selected platform */
+.active-platform {
+    border-radius: 8px;
+    background-color: #7c3aed3b;
+    border: 4px solid #400A9C;
+}
+
+  
+  
+/* ---------RoomCreatepop******** */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5); 
+    backdrop-filter: blur(8px); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; 
+  }
+    
+  .Section-pop-create {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+  }
+  
+   .CreateRpop-h1 {
+    font-size: 1.5rem;
+    color: #28a745; 
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+  
+  .CreateRpop-h2 {
+    font-size: 1.5rem;
+    color: #400A9C;
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+  
+ 
+  .Share-room {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    padding: 0.5rem;
+    border-radius: 5px;
+  }
+  
+  .Share-room input {
+    border: none;
+    width: 100%;
+    outline: none;
+    font-size: 1rem;
+  }
+  
+  .Share-room a img {
+    width: 24px;
+    cursor: pointer;
+  }
+  
+  
+  .Line-divisor {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .Line-divisor p{
+    font-size: 16px;
+    color: #400a9cd1;
+    font-weight: 700;
+  }
+  
+  .Line-divisor hr {
+    width: 30%;
+    border: 0.5px solid #400A9C;
+  }
+  
+  
+  .Social-contact a img {
+    width: 40px;
+    margin: 0 0.5rem;
+    cursor: pointer;
+  }
+  
+  .Social-contact a {
+    display: inline-flex;
+    align-items: center;
+  }
+  
+
+
+  /* -------------USER PROFILE CARD-----***************** */
+
+.User-details{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    position: absolute;
+    top: 82px;
+    right: 32px;
+    width: 305px;
+    background-color: #DEE3FF;
+    box-shadow: 0px 1px 6px 0px #400A9C;
+    border: 2px solid #400a9cc5;
+    border-radius: 10px;
+    height: 0;
+    opacity: 0;
+    padding: 6px;
+    overflow: hidden;
+    transition: height 0.3s ease, opacity 0.3s ease;
+}
+ 
+
+.User-name{
+    text-align: left;
+    align-self: flex-start;
+    margin-bottom: 13px;
+}
+.User-name h1{
+    font-size: 23px;
+    margin-bottom: 0;
+}
+.User-name p{
+    font-size: 18px;
+    margin: 0;
+}
+.Logout-btn{
+    background-color: #7C3AED;
+    border: 2px solid #400A9C;
+    border-radius: 10px;
+    align-self: center;
+    cursor: pointer;
+    color: white;
+    padding: 10px 18px;
+    width: 100px;
+    font-size: 16px;
+    margin-top: 45px;
+
+}
+.user-img-btn{
+    background: none;
+    border: none;
+}
+.User-details.visible {
+    height: 296px; 
+    opacity: 1;
+    /* padding: 13px; */
+}
+.User-container-options{
+    width: 300px;
+    font-size: 20px;
+    padding: 11px 7px;
+    text-align: left;
+    margin-bottom: 10px;
+    background-color: #7C3AED;
+    border: none;
+    color: #FFFFFF;
+    font-weight: 100;
+    border-radius: 2px;
+}
+
+
+
+/* ******************Join Panel--------------------- */
+.video-player {
+    width: 60%; /* Video player takes up 60% */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #1e1e1e;
+  }
+
+  
+  
+  .video-player {
+    width: 60%; /* Video player takes up 60% */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #1e1e1e;
+  }
+  
+  .chat {
+    width: 20%; /* Chat takes up 20% */
+    background-color: #3b3b3b;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+  }
+  
+
+
+.chatbox{
+    display: flex;
+    flex-direction: column;
+    align-items: normal;
+    height: 515px;
+}
+
+
+/* ***************************** */
+
+
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .Section-pop-create {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .close-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .close-button:hover {
+    background: #0056b3;
+  }
+  
+
+
+
+/* Leavesroom*********************/
+.leave-room-button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+.leave-room-button:hover {
+background-color: darkred;
+}
+
+/* inviteroom*********************/
+.invite-button {
+    background-color: #7C3AED;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+.invite-button:hover {
+background-color: #6318E3;
+}
+
+
+.room-name{
+    font-size: 25px;
+    font-weight: 700;
+    color: white;
+}
+
+.room-list{
+    display: grid;
+    grid-template-columns: 325px 325px 325px 325px;
+    grid-auto-rows: 260px;
+    gap: 18px;
+}
 
